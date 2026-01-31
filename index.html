@@ -3,110 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Açaí Mania - Pedido Online</title>
+    <title>Açaí Mania - Premium Delivery</title>
     <style>
-        :root { --roxo: #5a1770; --roxo-claro: #f4e9f7; --roxo-hover: #46105a; --verde-whats: #25d366; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--roxo-claro); margin: 0; padding: 0; }
-        header { background: var(--roxo); color: #fff; padding: 20px; text-align: center; }
-        .logo-img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #fff; margin-bottom: 10px; object-fit: cover; }
-        .container { max-width: 600px; margin: 15px auto; background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h2 { color: var(--roxo); border-bottom: 2px solid var(--roxo-claro); padding-bottom: 5px; margin-top: 20px; font-size: 1.2rem; }
-        h3 { font-size: 1rem; color: #555; margin-top: 15px; margin-bottom: 5px; }
-        label { display: block; margin-top: 10px; font-weight: bold; font-size: 0.9rem; }
-        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
+        :root { 
+            --bg-dark: #1a0521; 
+            --card-bg: #2d0b37;
+            --roxo-vibrante: #9d34da;
+            --texto: #f4e9f7;
+            --verde-whats: #25d366; 
+            --dourado: #ffcf4b; 
+            --azul-pix: #40a0ff;
+        }
         
-        .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
-        .checkbox-group label { display: flex; align-items: center; font-weight: normal; background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #eee; margin-top: 0; cursor: pointer; }
-        .checkbox-group input { width: auto; margin-right: 10px; }
+        body { 
+            font-family: 'Segoe UI', Roboto, sans-serif; 
+            background-color: var(--bg-dark); 
+            color: var(--texto);
+            margin: 0; padding: 0; padding-bottom: 80px; 
+        }
         
-        button { margin-top: 20px; width: 100%; padding: 16px; background: var(--roxo); color: #fff; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; }
-        .btn-remover { background: #ff4444; padding: 5px 10px; font-size: 12px; width: auto; margin-top: 0; }
+        header { 
+            background: linear-gradient(180deg, #3e0e4d 0%, var(--bg-dark) 100%);
+            padding: 30px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo-img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--roxo-vibrante); margin-bottom: 10px; object-fit: cover; box-shadow: 0 0 20px rgba(157, 52, 218, 0.4); }
+        .frase-biblica { font-style: italic; font-size: 0.85rem; color: var(--roxo-vibrante); margin-top: 5px; font-weight: 500; }
+        
+        .fidelidade-card { 
+            background: linear-gradient(45deg, #b8860b, #ffd700); 
+            color: #1a0521; padding: 15px; border-radius: 12px; 
+            margin: -20px auto 20px; max-width: 90%; text-align: center; font-weight: 800; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); border: 2px solid rgba(255,255,255,0.3);
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        
+        .card-secao { 
+            background: var(--card-bg); padding: 20px; border-radius: 18px; 
+            margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
 
-        .resumo { background: #fdfbff; border: 2px solid var(--roxo); padding: 15px; border-radius: 10px; margin-top: 20px; display: none; }
-        .item-carrinho { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
-        .total-destaque { font-size: 1.1rem; font-weight: bold; color: var(--roxo); text-align: center; background: var(--roxo-claro); padding: 15px; border-radius: 8px; margin-top: 10px; }
+        h2 { color: var(--dourado); font-size: 1.1rem; margin-top: 0; display: flex; align-items: center; gap: 10px; }
+        
+        label { display: block; margin-top: 15px; font-weight: 600; font-size: 0.85rem; color: #ccc; }
+        
+        input, select, textarea { 
+            width: 100%; padding: 14px; margin-top: 8px; 
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; 
+            font-size: 16px; box-sizing: border-box; 
+            background: rgba(0,0,0,0.2); color: white;
+        }
+        
+        input:focus, select:focus { border-color: var(--roxo-vibrante); outline: none; }
 
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; color: white; text-align: center; flex-direction: column; }
+        /* BOX PIX GOURMET */
+        .box-pix {
+            background: rgba(64, 160, 255, 0.1);
+            border: 2px solid var(--azul-pix);
+            padding: 20px; border-radius: 15px; margin-top: 15px; text-align: center;
+        }
+        .pix-chave { 
+            font-size: 1.4rem; color: var(--azul-pix); font-family: 'Courier New', monospace; 
+            background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; 
+            display: block; margin: 10px 0; font-weight: bold; border: 1px solid rgba(64,160,255,0.3);
+        }
+        .btn-copiar {
+            background: var(--azul-pix); color: white; border: none; padding: 12px 25px; 
+            border-radius: 50px; font-size: 0.9rem; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+
+        /* BOTÕES */
+        .btn-principal { 
+            background: var(--roxo-vibrante); color: white; border: none; 
+            padding: 18px; border-radius: 12px; width: 100%; 
+            font-size: 18px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(157, 52, 218, 0.4);
+        }
+        .btn-principal:disabled { background: #444 !important; box-shadow: none; color: #888; }
+
+        .btn-suporte { position: fixed; bottom: 20px; right: 20px; background: var(--verde-whats); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.5); text-decoration: none; z-index: 1000; font-size: 30px; border: 2px solid white; }
+
+        .status-loja { padding: 12px; border-radius: 10px; text-align: center; font-weight: bold; margin-bottom: 20px; font-size: 0.9rem; }
+        .aberto { background: rgba(37, 211, 102, 0.15); color: #25d366; border: 1px solid #25d366; }
+        .fechado { background: rgba(255, 68, 68, 0.15); color: #ff4444; border: 1px solid #ff4444; }
+        
+        .resumo { background: rgba(255,255,255,0.03); border: 2px solid var(--roxo-vibrante); padding: 15px; border-radius: 15px; margin-top: 25px; }
+        .item-carrinho { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .btn-remover { background: transparent; color: #ff4444; border: 1px solid #ff4444; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; }
+
+        #toast { visibility: hidden; min-width: 250px; background-color: var(--dourado); color: #000; text-align: center; border-radius: 10px; padding: 16px; position: fixed; z-index: 1001; left: 50%; bottom: 30px; transform: translateX(-50%); font-weight: bold; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
     </style>
 </head>
-<body>
+<body onload="verificarHorario()">
 
-<div id="overlay" class="overlay">
-    <h2 style="color: var(--verde-whats);">✔ PEDIDO CONCLUÍDO!</h2>
-    <p>Abrindo seu WhatsApp...</p>
-</div>
+<div id="toast">✅ Item Adicionado!</div>
+
+<a href="https://wa.me/5561995214424?text=Olá! Preciso de ajuda." class="btn-suporte">💬</a>
 
 <header>
-    <img src="acai.jpeg" alt="Logo" class="logo-img">
-    <h1>Açaí Mania 💜</h1>
-    <p style="font-style: italic; font-size: 0.9rem; margin-top: -10px; opacity: 0.9;">
-        "Tudo o que fizerem, façam de todo o coração." (Colossenses 3:23)
+    <img src="acai.jpeg" alt="Logo Açaí Mania" class="logo-img">
+    <h1 style="margin:0; font-size: 1.8rem; letter-spacing: 1px;">Açaí Mania 💜</h1>
+    <span class="frase-biblica">"Tudo o que fizerem, façam de todo o coração."</span>
 </header>
 
+<div class="fidelidade-card">
+    🎫 FIDELIDADE: Peça 10 e o 11º é GRÁTIS!
+</div>
+
 <div class="container">
-    <h2>1. Seus Dados</h2>
-    <input type="text" id="nome" placeholder="Seu Nome">
-    <input type="tel" id="telefone" placeholder="Seu WhatsApp (61) 9...">
-    
-    <label>Localidade para Entrega</label>
-    <select id="cidade" onchange="atualizarResumo()">
-        <option value="Itapoá Parque">Itapoá Parque (Frete GRÁTIS)</option>
-        <option value="Itapoá - Del Lago">Itapoá - Del Lago (Frete R$ 7,00)</option>
-        <option value="Itapoá I">Itapoá I (Frete R$ 7,00)</option>
-        <option value="Itapoá II">Itapoá II (Frete R$ 7,00)</option>
-        <option value="Paranoá">Paranoá (Frete R$ 7,00)</option>
-        <option value="Paranoá Parque">Paranoá Parque (Frete R$ 7,00)</option>
-        <option value="Cond. Entre lagos">Cond. Entre lagos (Frete R$ 8,00)</option>
-        <option value="Capoeira do balsamo">Capoeira do balsamo (Frete R$ 8,00)</option>
-    </select>
-    
-    <input type="text" id="endereco" placeholder="Endereço Completo (Rua, Casa, Bloco)">
+    <div id="statusLoja" class="status-loja">Verificando...</div>
 
-    <h2>2. Monte seu Açaí</h2>
-    <select id="produto" onchange="atualizarTamanhos()">
-        <option value="Açaí">Açaí Puro</option>
-        <option value="Açaí com Nutella">Açaí com Nutella</option>
-        <option value="Cupuaçu">Cupuaçu Puro</option>
-        <option value="Casadinho">Casadinho (Açaí + Cupuaçu)</option>
-        <option value="Combo Casal" data-fixo="36.00">Combo Casal (2x 400ml) — R$ 36,00</option>
-        <option value="Combo Família" data-fixo="51.00">Combo Família (3x 400ml) — R$ 51,00</option>
-        <option value="Combo Mania" data-fixo="26.00">Combo Mania (500ml + Nutella) — R$ 26,00</option>
-    </select>
-
-    <div id="boxTamanho">
-        <label>Tamanho</label>
-        <select id="tamanho"></select>
+    <div class="card-secao">
+        <h2>📍 Entrega</h2>
+        <input type="text" id="nome" placeholder="Seu Nome">
+        <input type="tel" id="telefone" placeholder="Seu WhatsApp (61) 9...">
+        
+        <label>Bairro / Localidade</label>
+        <select id="cidade" onchange="atualizarResumo()">
+            <option value="Itapoá Parque">Itapoá Parque (Frete GRÁTIS)</option>
+            <option value="Itapoá - Del Lago">Itapoá - Del Lago (Frete R$ 7,00)</option>
+            <option value="Paranoá / Itapoá I e II">Paranoá / Itapoá I e II (Frete R$ 7,00)</option>
+            <option value="Condomínios / Capoeira">Condomínios / Capoeira (Frete R$ 8,00)</option>
+        </select>
+        <input type="text" id="endereco" placeholder="Endereço Completo">
     </div>
 
-    <h3>Acompanhamentos Grátis</h3>
-    <div class="checkbox-group">
-        <label><input type="checkbox" class="adc" value="Granola"> Granola</label>
-        <label><input type="checkbox" class="adc" value="Paçoca"> Paçoca</label>
-        <label><input type="checkbox" class="adc" value="Amendoim"> Amendoim</label>
-        <label><input type="checkbox" class="adc" value="Leite em Pó"> Leite em Pó</label>
-        <label><input type="checkbox" class="adc" value="Leite Condensado"> Leite Condensado</label>
+    <div class="card-secao">
+        <h2>💳 Pagamento</h2>
+        <select id="pagamento" onchange="togglePagamento()">
+            <option value="Pix">Pix (Copia e Cola)</option>
+            <option value="Cartão">Cartão (Na entrega)</option>
+            <option value="Dinheiro">Dinheiro</option>
+        </select>
+
+        <div id="boxPix" class="box-pix">
+            <span style="font-size:0.7rem; font-weight:bold; color:var(--azul-pix); text-transform:uppercase;">Chave Celular</span>
+            <strong class="pix-chave" id="chavePixText">61995214424</strong>
+            <button type="button" class="btn-copiar" onclick="copiarPix()">📋 COPIAR CHAVE PIX</button>
+        </div>
+        <input type="text" id="troco" placeholder="Troco para quanto?" style="display:none; margin-top:10px;">
     </div>
 
-    <h3>Escolha uma Fruta (Grátis)</h3>
-    <div class="checkbox-group">
-        <label><input type="radio" name="fruta" class="fruta" value="Banana"> Banana</label>
-        <label><input type="radio" name="fruta" class="fruta" value="Morango"> Morango</label>
-        <label><input type="radio" name="fruta" class="fruta" value="Sem Fruta" checked> Sem Fruta</label>
-    </div>
+    <div class="card-secao">
+        <h2>🥤 Seu Açaí</h2>
+        <select id="produto" onchange="atualizarTamanhos()">
+            <option value="Açaí">Açaí Puro</option>
+            <option value="Açaí com Nutella">Açaí com Nutella</option>
+            <option value="Casadinho">Casadinho (Açaí + Cupuaçu)</option>
+            <option value="Combo Casal" data-fixo="36.00">Combo Casal (2x 400ml) — R$ 36,00</option>
+        </select>
 
-    <button onclick="adicionarItem()">+ Adicionar ao Pedido</button>
+        <div id="boxTamanho">
+            <label>Tamanho Escolhido</label>
+            <select id="tamanho" onchange="atualizarResumo()"></select>
+        </div>
+
+        <label>Alguma observação?</label>
+        <textarea id="obs_item" rows="2" placeholder="Ex: Sem granola..."></textarea>
+
+        <button id="btnAdicionar" class="btn-principal" style="margin-top:25px;" onclick="adicionarItem()">+ ADICIONAR AO PEDIDO</button>
+    </div>
 
     <div id="resumo" class="resumo">
-        <h3>📋 Seu Pedido</h3>
+        <h3 style="margin-top:0; color:var(--dourado);">🛒 Seu Carrinho</h3>
         <div id="listaItens"></div>
-        <div id="resumoFinanceiro" class="total-destaque"></div>
-        <button style="background: var(--verde-whats);" onclick="finalizarPedido()">ENVIAR PARA WHATSAPP 📱</button>
+        <div id="resumoFinanceiro" style="font-weight:bold; text-align:center; margin:20px 0; font-size:1.2rem; color:white;"></div>
+        <button id="btnFinalizar" class="btn-principal" style="background: var(--verde-whats); box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);" onclick="finalizarPedido()">ENVIAR NO WHATSAPP 📱</button>
     </div>
 </div>
 
 <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6VymyYf0K4EUZgE-88hrOHRfJx-EI-_VOW2jUf3RD-F71z2BG_AyxpWB1CN5EYcg/exec"; 
+    const SCRIPT_URL = "SUA_URL_DA_PLANILHA"; 
     let carrinho = [];
+    let valorTotalFinal = 0;
+
+    function verificarHorario() {
+        const agora = new Date();
+        const hora = agora.getHours();
+        const statusDiv = document.getElementById("statusLoja");
+        if (hora >= 9 && hora < 22) {
+            statusDiv.innerHTML = "🟢 ESTAMOS ABERTOS! Faça seu pedido.";
+            statusDiv.className = "status-loja aberto";
+        } else {
+            statusDiv.innerHTML = "🔴 LOJA FECHADA AGORA (Abrimos 09h às 22h)";
+            statusDiv.className = "status-loja fechado";
+            document.getElementById("btnAdicionar").disabled = true;
+        }
+    }
+
+    function togglePagamento() {
+        const pag = document.getElementById("pagamento").value;
+        document.getElementById("boxPix").style.display = (pag === "Pix") ? "block" : "none";
+        document.getElementById("troco").style.display = (pag === "Dinheiro") ? "block" : "none";
+    }
+
+    function copiarPix() {
+        const chave = document.getElementById("chavePixText").innerText;
+        navigator.clipboard.writeText(chave).then(() => {
+            const toast = document.getElementById("toast");
+            toast.innerText = "✅ Chave Copiada!";
+            toast.className = "show";
+            setTimeout(() => toast.className = "", 2000);
+        });
+    }
 
     function atualizarTamanhos() {
         const p = document.getElementById("produto").value;
@@ -114,96 +220,63 @@
         const box = document.getElementById("boxTamanho");
         if (p.includes("Combo")) { box.style.display = "none"; return; }
         box.style.display = "block";
-        let options = "";
-        if (p === "Açaí") options = `<option value="12">300 ml — R$ 12,00</option><option value="15">400 ml — R$ 15,00</option><option value="18">500 ml — R$ 18,00</option>`;
-        else if (p === "Açaí com Nutella" || p === "Casadinho") options = `<option value="14">300 ml — R$ 14,00</option><option value="18">400 ml — R$ 18,00</option><option value="22">500 ml — R$ 22,00</option>`;
-        else if (p === "Cupuaçu") options = `<option value="13">300 ml — R$ 13,00</option><option value="16">400 ml — R$ 16,00</option><option value="19">500 ml — R$ 19,00</option>`;
-        t.innerHTML = options;
+        t.innerHTML = `<option value="12">300 ml — R$ 12,00</option><option value="15">400 ml — R$ 15,00</option><option value="18">500 ml — R$ 18,00</option>`;
     }
     atualizarTamanhos();
 
     function adicionarItem() {
         const selP = document.getElementById("produto");
         const prodNome = selP.options[selP.selectedIndex].text.split("—")[0].trim();
-        let v = 0, tamTxt = "";
+        let v = selP.value.includes("Combo") ? parseFloat(selP.options[selP.selectedIndex].getAttribute("data-fixo")) : parseFloat(document.getElementById("tamanho").value);
+        const obs = document.getElementById("obs_item").value;
 
-        if (selP.value.includes("Combo")) {
-            v = parseFloat(selP.options[selP.selectedIndex].getAttribute("data-fixo"));
-            tamTxt = "Combo";
-        } else {
-            const selT = document.getElementById("tamanho");
-            v = parseFloat(selT.value);
-            tamTxt = selT.options[selT.selectedIndex].text.split("—")[0].trim();
-        }
+        carrinho.push({ p: prodNome, v: v, o: obs });
+        document.getElementById("obs_item").value = "";
+        
+        const toast = document.getElementById("toast");
+        toast.innerText = "✅ Item Adicionado!";
+        toast.className = "show";
+        setTimeout(() => toast.className = "", 2000);
 
-        let adcs = [];
-        document.querySelectorAll('.adc:checked').forEach(el => adcs.push(el.value));
-        
-        const frutaSel = document.querySelector('input[name="fruta"]:checked').value;
-        if(frutaSel !== "Sem Fruta") adcs.push(frutaSel);
-
-        carrinho.push({ p: prodNome, t: tamTxt, a: adcs, v: v });
-        
-        document.querySelectorAll('.adc').forEach(el => el.checked = false);
-        document.querySelector('input[value="Sem Fruta"]').checked = true;
-        
         atualizarResumo();
     }
-
-    function removerItem(idx) { carrinho.splice(idx, 1); atualizarResumo(); }
 
     function atualizarResumo() {
         const resumoDiv = document.getElementById("resumo");
         if (carrinho.length === 0) { resumoDiv.style.display = "none"; return; }
         resumoDiv.style.display = "block";
-
         const lista = document.getElementById("listaItens");
         lista.innerHTML = "";
         let subtotal = 0;
         carrinho.forEach((i, idx) => {
             subtotal += i.v;
             lista.innerHTML += `<div class="item-carrinho">
-                <div><strong>${i.p} (${i.t})</strong><br><small>${i.a.join(", ") || "Sem adcs"}</small></div>
-                <button class="btn-remover" onclick="removerItem(${idx})">Remover</button>
+                <span>${i.p} <br> <small style="color:var(--roxo-vibrante)">R$ ${i.v.toFixed(2)}</small></span>
+                <button class="btn-remover" onclick="carrinho.splice(${idx},1); atualizarResumo();">Remover</button>
             </div>`;
         });
-
         const cid = document.getElementById("cidade").value;
-        let frete = 0;
-        
-        if (cid === "Itapoá Parque") {
-            frete = 0;
-        } else if (cid.startsWith("Cond.") || cid === "Capoeira do balsamo") {
-            frete = 8;
-        } else {
-            frete = 7; // Itapoá Del Lago, I, II e Paranoá
-        }
-
-        const total = subtotal + frete;
-        document.getElementById("resumoFinanceiro").innerHTML = `SUBTOTAL: R$ ${subtotal.toFixed(2)}<br>FRETE: R$ ${frete.toFixed(2)}<br>TOTAL: R$ ${total.toFixed(2)}`;
+        let frete = (cid === "Itapoá Parque") ? 0 : (cid.includes("Condomínios")) ? 8 : 7;
+        valorTotalFinal = subtotal + frete;
+        document.getElementById("resumoFinanceiro").innerHTML = `<span style="font-size:0.9rem; color:#aaa">Itens: R$ ${subtotal.toFixed(2)} + Frete: R$ ${frete.toFixed(2)}</span><br>TOTAL: R$ ${valorTotalFinal.toFixed(2)}`;
     }
 
     function finalizarPedido() {
         const nome = document.getElementById("nome").value;
-        const tel = document.getElementById("telefone").value;
         const end = document.getElementById("endereco").value;
-        const cid = document.getElementById("cidade").value;
-        
-        if(!nome || !tel || !end) return alert("Preencha todos os dados de entrega!");
+        if(!nome || !end) return alert("Por favor, preencha os dados de entrega!");
 
-        const totalTxt = document.getElementById("resumoFinanceiro").innerText.split("TOTAL:")[1].trim();
         const id = "MANIA-" + Math.floor(1000 + Math.random() * 9000);
+        const valorPlanilha = `R$ ${valorTotalFinal.toFixed(2)}`;
 
-        let msg = `*NOVO PEDIDO ${id}* 💜\n\n*Cliente:* ${nome}\n*WhatsApp:* ${tel}\n*Endereço:* ${cid}, ${end}\n\n*ITENS:*`;
-        carrinho.forEach(i => msg += `\n- ${i.p} (${i.t}) [${i.a.join(", ") || "S/ Adcs"}]`);
-        msg += `\n\n*TOTAL: ${totalTxt}*`;
+        let msg = `*NOVO PEDIDO ${id}* 💜\n\n*Cliente:* ${nome}\n*Endereço:* ${end}\n\n*ITENS:*`;
+        carrinho.forEach(i => msg += `\n- ${i.p} ${i.o ? `(Obs: ${i.o})` : ''}`);
+        msg += `\n\n*TOTAL: ${valorPlanilha}*\n*Pagamento:* ${document.getElementById("pagamento").value}`;
+        msg += `\n\n🎫 *VALE 1 SELO NO CARTÃO FIDELIDADE!*`;
 
-        fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ id, nome, telefone: tel, cidade: cid, endereco: end, carrinho, total: totalTxt }) });
+        fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ id, nome, total: valorPlanilha, pagamento: document.getElementById("pagamento").value }) });
 
-        document.getElementById("overlay").style.display = "flex";
-        setTimeout(() => {
-            window.location.href = `https://wa.me/5561995214424?text=${encodeURIComponent(msg)}`;
-        }, 800);
+        window.location.href = `https://wa.me/5561995214424?text=${encodeURIComponent(msg)}`;
     }
 </script>
 </body>
