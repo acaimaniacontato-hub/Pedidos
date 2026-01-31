@@ -14,35 +14,29 @@
         label { display: block; margin-top: 15px; font-weight: bold; }
         input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
         
-        /* Checkboxes */
         .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
         .checkbox-group label { display: flex; align-items: center; font-weight: normal; background: #f9f9f9; padding: 8px; border-radius: 6px; border: 1px solid #eee; cursor: pointer; }
         .checkbox-group input { width: auto; margin-right: 10px; }
         
-        /* Botões */
         button { margin-top: 20px; width: 100%; padding: 16px; background: var(--roxo); color: #fff; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         button:hover { background: var(--roxo-hover); }
         .btn-acao { padding: 8px; font-size: 14px; width: auto; margin-top: 0; font-weight: normal; border-radius: 5px; margin-left: 5px; }
         .btn-editar { background: #ffcc00; color: #000; }
         .btn-remover { background: #ff4444; color: #fff; }
-        .btn-processando { background-color: #999 !important; cursor: not-allowed; }
 
-        /* Resumo */
         .resumo { background: #fff; border: 2px solid var(--roxo); padding: 20px; border-radius: 10px; margin-top: 25px; display: none; }
         .item-carrinho { background: #fdfbff; padding: 10px; border-radius: 5px; margin-bottom: 8px; border-left: 4px solid var(--roxo); display: flex; justify-content: space-between; align-items: center; }
         .total-destaque { font-size: 20px; font-weight: bold; color: #2d0a35; text-align: center; background: var(--roxo-claro); padding: 10px; border-radius: 8px; }
 
-        /* Tela de Sucesso (Overlay) */
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; color: white; text-align: center; flex-direction: column; }
-        .overlay h2 { color: var(--verde-whats); font-size: 30px; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; color: white; text-align: center; flex-direction: column; }
     </style>
 </head>
 <body>
 
 <div id="overlay" class="overlay">
-    <h2>✔ Pedido Concluído!</h2>
-    <p>Registrando na planilha e abrindo WhatsApp...</p>
-    <div style="margin-top: 20px; font-size: 40px;">💜</div>
+    <h2 style="color: var(--verde-whats);">✔ Pedido Registrado!</h2>
+    <p>Abrindo o WhatsApp da loja...</p>
+    <div style="margin-top: 20px; font-size: 50px;">💜</div>
 </div>
 
 <header>
@@ -69,9 +63,9 @@
         <option value="Açaí com Nutella">Açaí com Nutella</option>
         <option value="Cupuaçu">Cupuaçu Puro</option>
         <option value="Casadinho">Casadinho (Açaí + Cupuaçu)</option>
-        <option value="Combo Casal – 2 copos 400 ml (açaí ou cupuaçu)" data-fixo="36.00">Combo Casal – 2 copos 400 ml (açaí ou cupuaçu) — R$ 36,00</option>
-        <option value="Combo Família – 3 copos 400 ml (açaí ou cupuaçu)" data-fixo="51.00">Combo Família – 3 copos 400 ml (açaí ou cupuaçu) — R$ 51,00</option>
-        <option value="Combo Mania – 500 ml casadinho + Nutella" data-fixo="26.00">Combo Mania – 500 ml casadinho + Nutella — R$ 26,00</option>
+        <option value="Combo Casal" data-fixo="36.00">Combo Casal – 2 copos 400 ml — R$ 36,00</option>
+        <option value="Combo Família" data-fixo="51.00">Combo Família – 3 copos 400 ml — R$ 51,00</option>
+        <option value="Combo Mania" data-fixo="26.00">Combo Mania – 500 ml casadinho + Nutella — R$ 26,00</option>
     </select>
 
     <div id="boxTamanho">
@@ -94,12 +88,9 @@
 
     <div id="resumo" class="resumo">
         <h3>📋 Resumo do Pedido</h3>
-        <div class="resumo-secao" id="resumoDados"></div>
-        <div class="resumo-secao">
-            <b>Produtos Selecionados:</b>
-            <div id="listaItens"></div>
-        </div>
-        <div id="resumoFinanceiro" class="total-destaque"></div>
+        <div id="resumoDados"></div>
+        <div id="listaItens" style="margin-top: 15px;"></div>
+        <div id="resumoFinanceiro" class="total-destaque" style="margin-top: 15px;"></div>
         <button id="btnFinalizar" style="background: var(--verde-whats);" onclick="finalizarPedido()">Finalizar no WhatsApp 📱</button>
     </div>
 </div>
@@ -115,9 +106,9 @@
         if (p.includes("Combo")) { box.style.display = "none"; return; }
         box.style.display = "block";
         let options = "";
-        if (p === "Açaí") { options = `<option value="12">300 ml — R$ 12,00</option><option value="15">400 ml — R$ 15,00</option><option value="18">500 ml — R$ 18,00</option>`; }
-        else if (p === "Açaí com Nutella" || p === "Casadinho") { options = `<option value="14">300 ml — R$ 14,00</option><option value="18">400 ml — R$ 18,00</option><option value="22">500 ml — R$ 22,00</option>`; }
-        else if (p === "Cupuaçu") { options = `<option value="13">300 ml — R$ 13,00</option><option value="16">400 ml — R$ 16,00</option><option value="19">500 ml — R$ 19,00</option>`; }
+        if (p === "Açaí") options = `<option value="12">300 ml — R$ 12,00</option><option value="15">400 ml — R$ 15,00</option><option value="18">500 ml — R$ 18,00</option>`;
+        else if (p === "Açaí com Nutella" || p === "Casadinho") options = `<option value="14">300 ml — R$ 14,00</option><option value="18">400 ml — R$ 18,00</option><option value="22">500 ml — R$ 22,00</option>`;
+        else if (p === "Cupuaçu") options = `<option value="13">300 ml — R$ 13,00</option><option value="16">400 ml — R$ 16,00</option><option value="19">500 ml — R$ 19,00</option>`;
         t.innerHTML = options;
     }
     atualizarTamanhos();
@@ -139,7 +130,6 @@
 
         let adcs = [];
         document.querySelectorAll('.adc:checked').forEach(el => adcs.push(el.value));
-        
         carrinho.push({ p: prodNome, t: tamTxt, a: adcs, v: v, pOrig: prodVal });
         document.querySelectorAll('.adc').forEach(el => el.checked = false);
         atualizarResumo();
@@ -148,21 +138,6 @@
     function removerItem(index) {
         carrinho.splice(index, 1);
         atualizarResumo();
-    }
-
-    function editarItem(index) {
-        const item = carrinho[index];
-        document.getElementById("produto").value = item.pOrig;
-        atualizarTamanhos();
-        if(item.t !== "Combo") {
-            const selT = document.getElementById("tamanho");
-            for(let i=0; i<selT.options.length; i++) {
-                if(selT.options[i].text.includes(item.t)) { selT.selectedIndex = i; break; }
-            }
-        }
-        document.querySelectorAll('.adc').forEach(cb => cb.checked = item.a.includes(cb.value));
-        removerItem(index);
-        window.scrollTo({ top: 150, behavior: 'smooth' });
     }
 
     function atualizarResumo() {
@@ -184,11 +159,8 @@
             subtotal += i.v;
             lista.innerHTML += `
                 <div class="item-carrinho">
-                    <div><strong>${i.p} (${i.t})</strong><br><small>${i.a.join(", ") || "Sem adcs"}</small><br><span>R$ ${i.v.toFixed(2)}</span></div>
-                    <div class="acoes-item">
-                        <button class="btn-acao btn-editar" onclick="editarItem(${idx})">✏️</button>
-                        <button class="btn-acao btn-remover" onclick="removerItem(${idx})">🗑️</button>
-                    </div>
+                    <div><strong>${i.p} (${i.t})</strong><br><small>${i.a.join(", ") || "Sem adcs"}</small></div>
+                    <button class="btn-acao btn-remover" onclick="removerItem(${idx})">🗑️</button>
                 </div>`;
         });
 
@@ -197,45 +169,34 @@
         document.getElementById("resumoFinanceiro").innerHTML = `Subtotal: R$ ${subtotal.toFixed(2)} | Frete: R$ ${frete.toFixed(2)}<br><strong>TOTAL: R$ ${total.toFixed(2)}</strong>`;
     }
 
-    async function finalizarPedido() {
-        const btn = document.getElementById("btnFinalizar");
+    function finalizarPedido() {
         const nome = document.getElementById("nome").value;
         const tel = document.getElementById("telefone").value;
         const cid = document.getElementById("cidade").value;
         const end = document.getElementById("endereco").value;
         
-        if(!nome || !tel || !end) return alert("Preencha seus dados de entrega!");
+        if(!nome || !tel || !end) return alert("Por favor, preencha seus dados de entrega!");
 
-        const totalTxt = document.getElementById("resumoFinanceiro").innerText.split("TOTAL:")[1].trim();
+        const resumoFin = document.getElementById("resumoFinanceiro").innerText;
+        const totalTxt = resumoFin.split("TOTAL:")[1].trim();
         const id = "MANIA-" + Math.floor(1000 + Math.random() * 9000);
 
-        // Feedback Visual
-        btn.disabled = true;
-        btn.classList.add("btn-processando");
-        btn.innerHTML = "Enviando... ⏳";
+        // 1. Mensagem Formatada
+        let msg = `*NOVO PEDIDO ${id}* 💜\n\n*Cliente:* ${nome}\n*WhatsApp:* ${tel}\n*Endereço:* ${cid}, ${end}\n\n*ITENS:*`;
+        carrinho.forEach(i => msg += `\n- ${i.p} (${i.t}) [${i.a.join(", ") || "Sem adcs"}]`);
+        msg += `\n\n*TOTAL: ${totalTxt}*`;
 
-        try {
-            await fetch(SCRIPT_URL, {
-                method: "POST", mode: "no-cors",
-                body: JSON.stringify({ id, nome, telefone: tel, cidade: cid, endereco: end, carrinho, total: totalTxt })
-            });
+        // 2. Envio silencioso para planilha (Navigator Beacon é melhor para mobile)
+        const payload = JSON.stringify({ id, nome, telefone: tel, cidade: cid, endereco: end, carrinho, total: totalTxt });
+        fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: payload });
 
-            document.getElementById("overlay").style.display = "flex";
+        // 3. Feedback e Redirecionamento
+        document.getElementById("overlay").style.display = "flex";
 
-            let msg = `*NOVO PEDIDO ${id}* 💜\n\n*Cliente:* ${nome}\n*WhatsApp:* ${tel}\n*Endereço:* ${cid}, ${end}\n\n*ITENS:*`;
-            carrinho.forEach(i => msg += `\n- ${i.p} [${i.a.join(", ") || "Sem adcs"}]`);
-            msg += `\n\n*TOTAL: ${totalTxt}*`;
-
-            setTimeout(() => {
-                window.open(`https://api.whatsapp.com/send?phone=5561995214424&text=${encodeURIComponent(msg)}`);
-                location.reload();
-            }, 2000);
-        } catch (e) {
-            alert("Erro ao conectar. Tente novamente.");
-            btn.disabled = false;
-            btn.classList.remove("btn-processando");
-            btn.innerHTML = "Finalizar no WhatsApp 📱";
-        }
+        setTimeout(() => {
+            // No celular, window.location.href funciona melhor que window.open
+            window.location.href = `https://api.whatsapp.com/send?phone=5561995214424&text=${encodeURIComponent(msg)}`;
+        }, 1000);
     }
 </script>
 </body>
