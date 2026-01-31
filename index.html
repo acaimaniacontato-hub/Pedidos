@@ -11,6 +11,7 @@
         .logo-img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #fff; margin-bottom: 10px; object-fit: cover; }
         .container { max-width: 600px; margin: 15px auto; background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         h2 { color: var(--roxo); border-bottom: 2px solid var(--roxo-claro); padding-bottom: 5px; margin-top: 20px; font-size: 1.2rem; }
+        h3 { font-size: 1rem; color: #555; margin-top: 15px; margin-bottom: 5px; }
         label { display: block; margin-top: 10px; font-weight: bold; font-size: 0.9rem; }
         input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
         
@@ -38,20 +39,28 @@
 <header>
     <img src="acai.jpeg" alt="Logo" class="logo-img">
     <h1>Açaí Mania 💜</h1>
+    <p style="font-style: italic; font-size: 0.9rem; margin-top: -10px; opacity: 0.9;">
+        "Tudo o que fizerem, façam de todo o coração." (Colossenses 3:23)
 </header>
 
 <div class="container">
     <h2>1. Seus Dados</h2>
     <input type="text" id="nome" placeholder="Seu Nome">
     <input type="tel" id="telefone" placeholder="Seu WhatsApp (61) 9...">
+    
+    <label>Localidade para Entrega</label>
     <select id="cidade" onchange="atualizarResumo()">
         <option value="Itapoá Parque">Itapoá Parque (Frete GRÁTIS)</option>
+        <option value="Itapoá - Del Lago">Itapoá - Del Lago (Frete R$ 7,00)</option>
+        <option value="Itapoá I">Itapoá I (Frete R$ 7,00)</option>
+        <option value="Itapoá II">Itapoá II (Frete R$ 7,00)</option>
         <option value="Paranoá">Paranoá (Frete R$ 7,00)</option>
         <option value="Paranoá Parque">Paranoá Parque (Frete R$ 7,00)</option>
-        <option value="Cond. Entre lagos">Cond. Entre lagos (Frete R$ 7,00)</option>
-        <option value="Capoeira do balsamo">Capoeira do balsamo (Frete R$ 7,00)</option>
+        <option value="Cond. Entre lagos">Cond. Entre lagos (Frete R$ 8,00)</option>
+        <option value="Capoeira do balsamo">Capoeira do balsamo (Frete R$ 8,00)</option>
     </select>
-    <input type="text" id="endereco" placeholder="Endereço Completo">
+    
+    <input type="text" id="endereco" placeholder="Endereço Completo (Rua, Casa, Bloco)">
 
     <h2>2. Monte seu Açaí</h2>
     <select id="produto" onchange="atualizarTamanhos()">
@@ -69,15 +78,20 @@
         <select id="tamanho"></select>
     </div>
 
-    <label>Acompanhamentos Grátis</label>
+    <h3>Acompanhamentos Grátis</h3>
     <div class="checkbox-group">
         <label><input type="checkbox" class="adc" value="Granola"> Granola</label>
         <label><input type="checkbox" class="adc" value="Paçoca"> Paçoca</label>
         <label><input type="checkbox" class="adc" value="Amendoim"> Amendoim</label>
         <label><input type="checkbox" class="adc" value="Leite em Pó"> Leite em Pó</label>
         <label><input type="checkbox" class="adc" value="Leite Condensado"> Leite Condensado</label>
-        <label><input type="checkbox" class="adc" value="Banana"> Banana</label>
-        <label><input type="checkbox" class="adc" value="Morango"> Morango</label>
+    </div>
+
+    <h3>Escolha uma Fruta (Grátis)</h3>
+    <div class="checkbox-group">
+        <label><input type="radio" name="fruta" class="fruta" value="Banana"> Banana</label>
+        <label><input type="radio" name="fruta" class="fruta" value="Morango"> Morango</label>
+        <label><input type="radio" name="fruta" class="fruta" value="Sem Fruta" checked> Sem Fruta</label>
     </div>
 
     <button onclick="adicionarItem()">+ Adicionar ao Pedido</button>
@@ -124,8 +138,15 @@
 
         let adcs = [];
         document.querySelectorAll('.adc:checked').forEach(el => adcs.push(el.value));
+        
+        const frutaSel = document.querySelector('input[name="fruta"]:checked').value;
+        if(frutaSel !== "Sem Fruta") adcs.push(frutaSel);
+
         carrinho.push({ p: prodNome, t: tamTxt, a: adcs, v: v });
+        
         document.querySelectorAll('.adc').forEach(el => el.checked = false);
+        document.querySelector('input[value="Sem Fruta"]').checked = true;
+        
         atualizarResumo();
     }
 
@@ -142,13 +163,22 @@
         carrinho.forEach((i, idx) => {
             subtotal += i.v;
             lista.innerHTML += `<div class="item-carrinho">
-                <div><strong>${i.p} (${i.t})</strong><br><small>${i.a.join(", ") || "Sem acompanhamentos"}</small></div>
+                <div><strong>${i.p} (${i.t})</strong><br><small>${i.a.join(", ") || "Sem adcs"}</small></div>
                 <button class="btn-remover" onclick="removerItem(${idx})">Remover</button>
             </div>`;
         });
 
         const cid = document.getElementById("cidade").value;
-        const frete = cid === "Itapoá Parque" ? 0 : 7;
+        let frete = 0;
+        
+        if (cid === "Itapoá Parque") {
+            frete = 0;
+        } else if (cid.startsWith("Cond.") || cid === "Capoeira do balsamo") {
+            frete = 8;
+        } else {
+            frete = 7; // Itapoá Del Lago, I, II e Paranoá
+        }
+
         const total = subtotal + frete;
         document.getElementById("resumoFinanceiro").innerHTML = `SUBTOTAL: R$ ${subtotal.toFixed(2)}<br>FRETE: R$ ${frete.toFixed(2)}<br>TOTAL: R$ ${total.toFixed(2)}`;
     }
@@ -164,18 +194,13 @@
         const totalTxt = document.getElementById("resumoFinanceiro").innerText.split("TOTAL:")[1].trim();
         const id = "MANIA-" + Math.floor(1000 + Math.random() * 9000);
 
-        // Mensagem WhatsApp
         let msg = `*NOVO PEDIDO ${id}* 💜\n\n*Cliente:* ${nome}\n*WhatsApp:* ${tel}\n*Endereço:* ${cid}, ${end}\n\n*ITENS:*`;
         carrinho.forEach(i => msg += `\n- ${i.p} (${i.t}) [${i.a.join(", ") || "S/ Adcs"}]`);
         msg += `\n\n*TOTAL: ${totalTxt}*`;
 
-        // Registro silencioso na planilha
         fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ id, nome, telefone: tel, cidade: cid, endereco: end, carrinho, total: totalTxt }) });
 
-        // Ação imediata para Safari/iOS
         document.getElementById("overlay").style.display = "flex";
-        
-        // Redirecionamento universal (funciona em todos)
         setTimeout(() => {
             window.location.href = `https://wa.me/5561995214424?text=${encodeURIComponent(msg)}`;
         }, 800);
