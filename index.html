@@ -12,269 +12,241 @@
             --texto: #f4e9f7;
             --verde-whats: #25d366; 
             --dourado: #ffcf4b; 
-            --azul-pix: #40a0ff;
+            --fundo-input: #ffffff;
         }
         
-        body { 
-            font-family: 'Segoe UI', Roboto, sans-serif; 
-            background-color: var(--bg-dark); 
-            color: var(--texto);
-            margin: 0; padding: 0; padding-bottom: 80px; 
-        }
-        
-        header { 
-            background: linear-gradient(180deg, #3e0e4d 0%, var(--bg-dark) 100%);
-            padding: 30px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .logo-img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--roxo-vibrante); margin-bottom: 10px; object-fit: cover; box-shadow: 0 0 20px rgba(157, 52, 218, 0.4); }
-        .frase-biblica { font-style: italic; font-size: 0.85rem; color: var(--roxo-vibrante); margin-top: 5px; font-weight: 500; }
-        
-        .fidelidade-card { 
-            background: linear-gradient(45deg, #b8860b, #ffd700); 
-            color: #1a0521; padding: 15px; border-radius: 12px; 
-            margin: -20px auto 20px; max-width: 90%; text-align: center; font-weight: 800; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3); border: 2px solid rgba(255,255,255,0.3);
-            text-transform: uppercase; letter-spacing: 1px;
-        }
-        
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--bg-dark); color: var(--texto); margin: 0; padding-bottom: 80px; }
+        header { background: linear-gradient(180deg, #3e0e4d 0%, var(--bg-dark) 100%); padding: 30px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .logo-img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--roxo-vibrante); margin-bottom: 10px; object-fit: cover; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .card-secao { background: var(--card-bg); padding: 20px; border-radius: 18px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        h2 { color: var(--dourado); font-size: 1.2rem; margin-top: 0; }
         
-        .card-secao { 
-            background: var(--card-bg); padding: 20px; border-radius: 18px; 
-            margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        h2 { color: var(--dourado); font-size: 1.1rem; margin-top: 0; display: flex; align-items: center; gap: 10px; }
+        input, select, textarea { width: 100%; padding: 15px; margin-top: 8px; border: 2px solid var(--roxo-vibrante); border-radius: 12px; font-size: 16px; box-sizing: border-box; background: var(--fundo-input); color: #000; font-weight: 600; }
         
-        label { display: block; margin-top: 15px; font-weight: 600; font-size: 0.85rem; color: #ccc; }
+        .desc-produto { background: #fff3cd; border-left: 5px solid #ffc107; padding: 12px; margin: 15px 0; font-size: 0.9rem; color: #856404; font-weight: bold; border-radius: 8px; display: none; }
+        .grid-complementos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; border: 1px dashed var(--roxo-vibrante); }
+        .secao-frutas { grid-column: 1 / -1; color: var(--dourado); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 5px; }
+        .item-check { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: white; cursor: pointer; }
+        .item-check input { width: 20px; height: 20px; }
         
-        input, select, textarea { 
-            width: 100%; padding: 14px; margin-top: 8px; 
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; 
-            font-size: 16px; box-sizing: border-box; 
-            background: rgba(0,0,0,0.2); color: white;
-        }
+        .btn-principal { background: var(--roxo-vibrante); color: white; border: none; padding: 18px; border-radius: 12px; width: 100%; font-size: 18px; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 15px; }
+        .btn-concluir { background: var(--verde-whats); color: white; border: none; padding: 20px; border-radius: 12px; width: 100%; font-size: 20px; font-weight: bold; cursor: pointer; margin-top: 15px; }
         
-        input:focus, select:focus { border-color: var(--roxo-vibrante); outline: none; }
-
-        /* BOX PIX GOURMET */
-        .box-pix {
-            background: rgba(64, 160, 255, 0.1);
-            border: 2px solid var(--azul-pix);
-            padding: 20px; border-radius: 15px; margin-top: 15px; text-align: center;
-        }
-        .pix-chave { 
-            font-size: 1.4rem; color: var(--azul-pix); font-family: 'Courier New', monospace; 
-            background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; 
-            display: block; margin: 10px 0; font-weight: bold; border: 1px solid rgba(64,160,255,0.3);
-        }
-        .btn-copiar {
-            background: var(--azul-pix); color: white; border: none; padding: 12px 25px; 
-            border-radius: 50px; font-size: 0.9rem; font-weight: bold; cursor: pointer; transition: 0.3s;
-        }
-
-        /* BOTÕES */
-        .btn-principal { 
-            background: var(--roxo-vibrante); color: white; border: none; 
-            padding: 18px; border-radius: 12px; width: 100%; 
-            font-size: 18px; font-weight: bold; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(157, 52, 218, 0.4);
-        }
-        .btn-principal:disabled { background: #444 !important; box-shadow: none; color: #888; }
-
-        .btn-suporte { position: fixed; bottom: 20px; right: 20px; background: var(--verde-whats); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.5); text-decoration: none; z-index: 1000; font-size: 30px; border: 2px solid white; }
-
-        .status-loja { padding: 12px; border-radius: 10px; text-align: center; font-weight: bold; margin-bottom: 20px; font-size: 0.9rem; }
-        .aberto { background: rgba(37, 211, 102, 0.15); color: #25d366; border: 1px solid #25d366; }
-        .fechado { background: rgba(255, 68, 68, 0.15); color: #ff4444; border: 1px solid #ff4444; }
-        
-        .resumo { background: rgba(255,255,255,0.03); border: 2px solid var(--roxo-vibrante); padding: 15px; border-radius: 15px; margin-top: 25px; }
-        .item-carrinho { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .btn-remover { background: transparent; color: #ff4444; border: 1px solid #ff4444; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; }
-
-        #toast { visibility: hidden; min-width: 250px; background-color: var(--dourado); color: #000; text-align: center; border-radius: 10px; padding: 16px; position: fixed; z-index: 1001; left: 50%; bottom: 30px; transform: translateX(-50%); font-weight: bold; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-
-        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
-        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+        .resumo { background: white; border: 4px solid var(--roxo-vibrante); padding: 20px; border-radius: 15px; margin-top: 25px; color: black; display: none; }
+        .item-carrinho { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding: 12px 0; }
+        .btn-remover { background: #ff4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
 <body onload="verificarHorario()">
 
-<div id="toast">✅ Item Adicionado!</div>
-
-<a href="https://wa.me/5561995214424?text=Olá! Preciso de ajuda." class="btn-suporte">💬</a>
+<div id="toast" style="visibility: hidden; min-width: 250px; background-color: var(--verde-whats); color: #fff; text-align: center; border-radius: 10px; padding: 16px; position: fixed; z-index: 1001; left: 50%; bottom: 30px; transform: translateX(-50%);">✅ Item adicionado!</div>
 
 <header>
-    <img src="acai.jpeg" alt="Logo Açaí Mania" class="logo-img">
-    <h1 style="margin:0; font-size: 1.8rem; letter-spacing: 1px;">Açaí Mania 💜</h1>
-    <span class="frase-biblica">"Tudo o que fizerem, façam de todo o coração."</span>
+    <img src="acai.jpeg" alt="Logo" class="logo-img">
+    <h1>Açaí Mania 💜</h1>
 </header>
 
-<div class="fidelidade-card">
-    🎫 FIDELIDADE: Peça 10 e o 11º é GRÁTIS!
-</div>
-
 <div class="container">
-    <div id="statusLoja" class="status-loja">Verificando...</div>
+    <div id="statusLoja" style="text-align:center; padding:10px; border-radius:10px; margin-bottom:15px; font-weight:bold; color: white;">Verificando...</div>
 
     <div class="card-secao">
         <h2>📍 Entrega</h2>
         <input type="text" id="nome" placeholder="Seu Nome">
-        <input type="tel" id="telefone" placeholder="Seu WhatsApp (61) 9...">
+        <input type="tel" id="whatsapp_cliente" placeholder="Seu WhatsApp (61) 9....">
         
-        <label>Bairro / Localidade</label>
         <select id="cidade" onchange="atualizarResumo()">
-            <option value="Itapoá Parque">Itapoá Parque (Frete GRÁTIS)</option>
-            <option value="Itapoá - Del Lago">Itapoá - Del Lago (Frete R$ 7,00)</option>
-            <option value="Paranoá / Itapoá I e II">Paranoá / Itapoá I e II (Frete R$ 7,00)</option>
-            <option value="Condomínios / Capoeira">Condomínios / Capoeira (Frete R$ 8,00)</option>
+            <option value="Itapoá Parque">Itapoá Parque (Grátis)</option>
+            <option value="Itapoá I">Itapoá I</option>
+            <option value="Itapoá II">Itapoá II</option>
+            <option value="Itapoá - Del Lago">Itapoá - Del Lago (R$ 7,00)</option>
+            <option value="Paranoá">Paranoá (R$ 7,00)</option>
+            <option value="Paranoá Parque">Paranoá Parque (R$ 7,00)</option>
+            <option value="Cond. Entre Lagos">Cond. Entre Lagos (R$ 8,00)</option>
+            <option value="Cond. Novo Horizonte">Cond. Novo Horizonte (R$ 8,00)</option>
+            <option value="Cond. La Font">Cond. La Font (R$ 8,00)</option>
         </select>
         <input type="text" id="endereco" placeholder="Endereço Completo">
     </div>
 
     <div class="card-secao">
-        <h2>💳 Pagamento</h2>
-        <select id="pagamento" onchange="togglePagamento()">
-            <option value="Pix">Pix (Copia e Cola)</option>
-            <option value="Cartão">Cartão (Na entrega)</option>
-            <option value="Dinheiro">Dinheiro</option>
+        <h2>🥤 Produto</h2>
+        <select id="produto" onchange="atualizarOpcoes()">
+            <option value="">Escolha aqui...</option>
+            <option value="Açaí Tradicional" data-desc="💜 Açaí cremoso batido na hora!">Açaí Tradicional (Sem Nutella)</option>
+            <option value="Açaí com Nutella" data-desc="🍫 Açaí premium com Nutella autêntica.">Açaí com Nutella</option>
+            <option value="Cupuaçu" data-desc="⚪ Polpa de cupuaçu pura e cremosa.">Cupuaçu Puro</option>
+            <option value="Combo Casal" data-fixo="36.00" data-desc="👉 2 Açaís de 400 ml com Nutella.">Combo Casal — R$ 36,00</option>
+            <option value="Combo Família" data-fixo="54.00" data-desc="👉 3 Açaís de 400 ml com Nutella.">Combo Família — R$ 54,00</option>
         </select>
 
-        <div id="boxPix" class="box-pix">
-            <span style="font-size:0.7rem; font-weight:bold; color:var(--azul-pix); text-transform:uppercase;">Chave Celular</span>
-            <strong class="pix-chave" id="chavePixText">61995214424</strong>
-            <button type="button" class="btn-copiar" onclick="copiarPix()">📋 COPIAR CHAVE PIX</button>
+        <div id="descProduto" class="desc-produto"></div>
+
+        <div id="boxEscolhas" style="display:none;">
+            <div id="boxTamanho">
+                <label style="color:var(--dourado); font-weight:bold; display:block; margin-top:10px;">Tamanho:</label>
+                <select id="tamanho" onchange="atualizarResumo()"></select>
+            </div>
+            
+            <label style="color:var(--dourado); font-weight:bold; display:block; margin-top:15px;">Complementos Grátis:</label>
+            <div class="grid-complementos" id="listaComplementos">
+                <div class="secao-frutas">🍎 Fruta (Escolha uma):</div>
+                <label class="item-check"><input type="checkbox" class="fruta-check" value="Banana" onclick="limitarFruta(this)"> 🍌 Banana</label>
+                <label class="item-check"><input type="checkbox" class="fruta-check" value="Morango" onclick="limitarFruta(this)"> 🍓 Morango</label>
+                <div class="secao-frutas" style="margin-top:10px;">✨ Outros:</div>
+                <label class="item-check"><input type="checkbox" value="Leite em Pó"> Leite em Pó</label>
+                <label class="item-check"><input type="checkbox" value="Granola"> Granola</label>
+                <label class="item-check"><input type="checkbox" value="Paçoca"> Paçoca</label>
+                <label class="item-check"><input type="checkbox" value="Amendoin"> Amendoin</label>
+                <label class="item-check"><input type="checkbox" value="Leite Condensado"> Leite Condensado</label>
+            </div>
         </div>
-        <input type="text" id="troco" placeholder="Troco para quanto?" style="display:none; margin-top:10px;">
+        <button class="btn-principal" onclick="adicionarItem()">+ ADICIONAR AO PEDIDO</button>
     </div>
 
     <div class="card-secao">
-        <h2>🥤 Seu Açaí</h2>
-        <select id="produto" onchange="atualizarTamanhos()">
-            <option value="Açaí">Açaí Puro</option>
-            <option value="Açaí com Nutella">Açaí com Nutella</option>
-            <option value="Casadinho">Casadinho (Açaí + Cupuaçu)</option>
-            <option value="Combo Casal" data-fixo="36.00">Combo Casal (2x 400ml) — R$ 36,00</option>
+        <h2>💳 Pagamento</h2>
+        <select id="pagamento">
+            <option value="Pix">Pix (Chave: 61995214424)</option>
+            <option value="Cartão">Cartão na Entrega</option>
+            <option value="Dinheiro">Dinheiro</option>
         </select>
-
-        <div id="boxTamanho">
-            <label>Tamanho Escolhido</label>
-            <select id="tamanho" onchange="atualizarResumo()"></select>
-        </div>
-
-        <label>Alguma observação?</label>
-        <textarea id="obs_item" rows="2" placeholder="Ex: Sem granola..."></textarea>
-
-        <button id="btnAdicionar" class="btn-principal" style="margin-top:25px;" onclick="adicionarItem()">+ ADICIONAR AO PEDIDO</button>
     </div>
 
     <div id="resumo" class="resumo">
-        <h3 style="margin-top:0; color:var(--dourado);">🛒 Seu Carrinho</h3>
+        <h3 style="margin-top:0;">🛒 Seu Pedido</h3>
         <div id="listaItens"></div>
-        <div id="resumoFinanceiro" style="font-weight:bold; text-align:center; margin:20px 0; font-size:1.2rem; color:white;"></div>
-        <button id="btnFinalizar" class="btn-principal" style="background: var(--verde-whats); box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);" onclick="finalizarPedido()">ENVIAR NO WHATSAPP 📱</button>
+        <div id="total" style="font-size:1.5rem; font-weight:800; text-align:center; margin:20px 0;"></div>
+        <button class="btn-concluir" onclick="finalizarPedido()">CONCLUIR PEDIDO</button>
     </div>
 </div>
 
 <script>
-    const SCRIPT_URL = "SUA_URL_DA_PLANILHA"; 
     let carrinho = [];
     let valorTotalFinal = 0;
 
+    function limitarFruta(checkbox) {
+        document.querySelectorAll('.fruta-check').forEach(c => { if(c !== checkbox) c.checked = false; });
+    }
+
     function verificarHorario() {
-        const agora = new Date();
-        const hora = agora.getHours();
-        const statusDiv = document.getElementById("statusLoja");
-        if (hora >= 9 && hora < 22) {
-            statusDiv.innerHTML = "🟢 ESTAMOS ABERTOS! Faça seu pedido.";
-            statusDiv.className = "status-loja aberto";
+        const hora = new Date().getHours();
+        const s = document.getElementById("statusLoja");
+        if(hora >= 7 && hora < 23) { s.innerHTML = "🟢 ABERTO"; s.style.background = "#25d366"; }
+        else { s.innerHTML = "🔴 FECHADO"; s.style.background = "#ff4444"; }
+    }
+
+    function atualizarOpcoes() {
+        const pSel = document.getElementById("produto");
+        const pValue = pSel.value;
+        const box = document.getElementById("boxEscolhas");
+        const boxT = document.getElementById("boxTamanho");
+        const tSel = document.getElementById("tamanho");
+        const descDiv = document.getElementById("descProduto");
+        
+        if(!pValue) { box.style.display = "none"; descDiv.style.display = "none"; return; }
+        
+        descDiv.innerHTML = pSel.options[pSel.selectedIndex].getAttribute("data-desc");
+        descDiv.style.display = "block";
+        box.style.display = "block";
+        
+        if(pValue.includes("Combo")) {
+            boxT.style.display = "none";
         } else {
-            statusDiv.innerHTML = "🔴 LOJA FECHADA AGORA (Abrimos 09h às 22h)";
-            statusDiv.className = "status-loja fechado";
-            document.getElementById("btnAdicionar").disabled = true;
+            boxT.style.display = "block";
+            if(pValue === "Açaí Tradicional") {
+                tSel.innerHTML = '<option value="12">300ml - R$ 12</option><option value="16">400ml - R$ 16</option><option value="20">500ml - R$ 20</option>';
+            } else if(pValue === "Açaí com Nutella") {
+                tSel.innerHTML = '<option value="15">300ml - R$ 15</option><option value="19">400ml - R$ 19</option><option value="23">500ml - R$ 23</option>';
+            } else {
+                tSel.innerHTML = '<option value="15">300ml - R$ 15</option><option value="16">400ml - R$ 16</option><option value="20">500ml - R$ 20</option>';
+            }
         }
     }
 
-    function togglePagamento() {
-        const pag = document.getElementById("pagamento").value;
-        document.getElementById("boxPix").style.display = (pag === "Pix") ? "block" : "none";
-        document.getElementById("troco").style.display = (pag === "Dinheiro") ? "block" : "none";
-    }
-
-    function copiarPix() {
-        const chave = document.getElementById("chavePixText").innerText;
-        navigator.clipboard.writeText(chave).then(() => {
-            const toast = document.getElementById("toast");
-            toast.innerText = "✅ Chave Copiada!";
-            toast.className = "show";
-            setTimeout(() => toast.className = "", 2000);
-        });
-    }
-
-    function atualizarTamanhos() {
-        const p = document.getElementById("produto").value;
-        const t = document.getElementById("tamanho");
-        const box = document.getElementById("boxTamanho");
-        if (p.includes("Combo")) { box.style.display = "none"; return; }
-        box.style.display = "block";
-        t.innerHTML = `<option value="12">300 ml — R$ 12,00</option><option value="15">400 ml — R$ 15,00</option><option value="18">500 ml — R$ 18,00</option>`;
-    }
-    atualizarTamanhos();
-
     function adicionarItem() {
-        const selP = document.getElementById("produto");
-        const prodNome = selP.options[selP.selectedIndex].text.split("—")[0].trim();
-        let v = selP.value.includes("Combo") ? parseFloat(selP.options[selP.selectedIndex].getAttribute("data-fixo")) : parseFloat(document.getElementById("tamanho").value);
-        const obs = document.getElementById("obs_item").value;
-
-        carrinho.push({ p: prodNome, v: v, o: obs });
-        document.getElementById("obs_item").value = "";
+        const pSel = document.getElementById("produto");
+        if(!pSel.value) return alert("Escolha um produto!");
         
-        const toast = document.getElementById("toast");
-        toast.innerText = "✅ Item Adicionado!";
-        toast.className = "show";
-        setTimeout(() => toast.className = "", 2000);
+        const nomeP = pSel.options[pSel.selectedIndex].text.split('—')[0];
+        let valor = pSel.value.includes("Combo") ? parseFloat(pSel.options[pSel.selectedIndex].getAttribute("data-fixo")) : parseFloat(document.getElementById("tamanho").value);
+        
+        let comps = [];
+        document.querySelectorAll('#listaComplementos input:checked').forEach(c => comps.push(c.value));
+        
+        carrinho.push({
+            nome: nomeP.trim(),
+            tamanho: pSel.value.includes("Combo") ? "" : document.getElementById("tamanho").options[document.getElementById("tamanho").selectedIndex].text.split('-')[0].trim(),
+            valor: valor,
+            comp: comps.join(", ")
+        });
 
+        document.querySelectorAll('#listaComplementos input').forEach(c => c.checked = false);
+        const t = document.getElementById("toast");
+        t.style.visibility = "visible";
+        setTimeout(() => t.style.visibility = "hidden", 2000);
         atualizarResumo();
     }
 
     function atualizarResumo() {
-        const resumoDiv = document.getElementById("resumo");
-        if (carrinho.length === 0) { resumoDiv.style.display = "none"; return; }
-        resumoDiv.style.display = "block";
-        const lista = document.getElementById("listaItens");
-        lista.innerHTML = "";
+        const res = document.getElementById("resumo");
+        if(carrinho.length === 0) { res.style.display = "none"; return; }
+        res.style.display = "block";
+        
+        let html = "";
         let subtotal = 0;
         carrinho.forEach((i, idx) => {
-            subtotal += i.v;
-            lista.innerHTML += `<div class="item-carrinho">
-                <span>${i.p} <br> <small style="color:var(--roxo-vibrante)">R$ ${i.v.toFixed(2)}</small></span>
+            subtotal += i.valor;
+            html += `<div class="item-carrinho">
+                <span><b>${i.nome} ${i.tamanho}</b><br><small>Com: ${i.comp}</small></span>
                 <button class="btn-remover" onclick="carrinho.splice(${idx},1); atualizarResumo();">Remover</button>
             </div>`;
         });
+        
         const cid = document.getElementById("cidade").value;
-        let frete = (cid === "Itapoá Parque") ? 0 : (cid.includes("Condomínios")) ? 8 : 7;
+        let frete = 0;
+        if(cid === "Itapoá - Del Lago" || cid === "Paranoá") frete = 7;
+        else if(cid === "Cond. Entre Lagos") frete = 8;
+        
         valorTotalFinal = subtotal + frete;
-        document.getElementById("resumoFinanceiro").innerHTML = `<span style="font-size:0.9rem; color:#aaa">Itens: R$ ${subtotal.toFixed(2)} + Frete: R$ ${frete.toFixed(2)}</span><br>TOTAL: R$ ${valorTotalFinal.toFixed(2)}`;
+        document.getElementById("listaItens").innerHTML = html;
+        document.getElementById("total").innerHTML = `TOTAL: R$ ${valorTotalFinal.toFixed(2)}`;
     }
 
     function finalizarPedido() {
         const nome = document.getElementById("nome").value;
+        const zap_cliente = document.getElementById("whatsapp_cliente").value;
         const end = document.getElementById("endereco").value;
-        if(!nome || !end) return alert("Por favor, preencha os dados de entrega!");
+        if(!nome || !end || !zap_cliente) return alert("Preencha Nome, WhatsApp e Endereço!");
 
-        const id = "MANIA-" + Math.floor(1000 + Math.random() * 9000);
-        const valorPlanilha = `R$ ${valorTotalFinal.toFixed(2)}`;
+        const pedidoId = "AM-" + Date.now().toString().slice(-6);
+        let prodsPlan = "";
+        let compsPlan = "";
+        let msg = `*PEDIDO #${pedidoId}* 💜\n\n*Cliente:* ${nome}\n*WhatsApp:* ${zap_cliente}\n*Endereço:* ${end}\n\n*ITENS:*`;
+        
+        carrinho.forEach(i => {
+            msg += `\n- ${i.nome} ${i.tamanho} (Extras: ${i.comp})\n`;
+            prodsPlan += `${i.nome} ${i.tamanho} | `;
+            // --- AJUSTE SOLICITADO ABAIXO: ENVIANDO SOMENTE OS COMPLEMENTOS ---
+            compsPlan += `${i.comp} | `; 
+        });
 
-        let msg = `*NOVO PEDIDO ${id}* 💜\n\n*Cliente:* ${nome}\n*Endereço:* ${end}\n\n*ITENS:*`;
-        carrinho.forEach(i => msg += `\n- ${i.p} ${i.o ? `(Obs: ${i.o})` : ''}`);
-        msg += `\n\n*TOTAL: ${valorPlanilha}*\n*Pagamento:* ${document.getElementById("pagamento").value}`;
-        msg += `\n\n🎫 *VALE 1 SELO NO CARTÃO FIDELIDADE!*`;
+        msg += `\n*TOTAL: R$ ${valorTotalFinal.toFixed(2)}*\n*Pagamento:* ${document.getElementById("pagamento").value}`;
 
-        fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ id, nome, total: valorPlanilha, pagamento: document.getElementById("pagamento").value }) });
+        fetch('https://script.google.com/macros/s/AKfycbwlstTyQvN7JBZTDjpXcyCQvqUZdE2v9wtB8Ud-aT597G8LAFLYAPSFjle1BjQwIXWr/exec', {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({
+                id: pedidoId,
+                nome: nome,
+                whatsapp: zap_cliente,
+                endereco: end,
+                produtos: prodsPlan, 
+                complementos: compsPlan, 
+                valor: valorTotalFinal.toFixed(2),
+                pagamento: document.getElementById("pagamento").value
+            })
+        });
 
         window.location.href = `https://wa.me/5561995214424?text=${encodeURIComponent(msg)}`;
     }
