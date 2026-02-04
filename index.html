@@ -61,7 +61,6 @@
         .btn-modal-add { background: transparent; color: var(--dourado); border: 2px solid var(--dourado); padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
         .btn-modal-final { background: var(--verde-whats); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
 
-        /* Botão Flutuante */
         .btn-flutuante {
             position: fixed;
             width: 60px;
@@ -80,6 +79,10 @@
             justify-content: center;
             text-decoration: none;
         }
+
+        /* Estilo para os novos campos de pagamento */
+        #campoPix { margin-top: 15px; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; border: 1px dashed var(--dourado); }
+        .btn-copiar { background: var(--dourado); color: #000; border: none; padding: 8px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; width: 100%; }
     </style>
 </head>
 <body onload="verificarHorario()">
@@ -157,11 +160,21 @@
 
     <div class="card-secao">
         <h2>💳 Pagamento</h2>
-        <select id="pagamento">
+        <select id="pagamento" onchange="verificarMetodoPagamento()">
             <option value="Pix">Pix (Chave: 61995214424)</option>
             <option value="Cartão">Cartão na Entrega</option>
             <option value="Dinheiro">Dinheiro</option>
         </select>
+
+        <div id="campoTroco" style="display:none;">
+            <input type="number" id="valorTroco" placeholder="Troco para quanto?">
+        </div>
+
+        <div id="campoPix">
+            <small style="color: var(--dourado);">Chave Pix (Celular):</small>
+            <div style="font-weight: bold; margin: 5px 0; font-size: 1.1rem;">61995214424</div>
+            <button class="btn-copiar" onclick="copiarPix()">📋 COPIAR CHAVE PIX</button>
+        </div>
     </div>
 
     <div id="resumo" class="resumo">
@@ -213,6 +226,20 @@
         const s = document.getElementById("statusLoja");
         if(hora >= 7 && hora < 23) { s.innerHTML = "🟢 ABERTO"; s.style.background = "#25d366"; }
         else { s.innerHTML = "🔴 FECHADO"; s.style.background = "#ff4444"; }
+    }
+
+    // Novas funções de Pagamento
+    function verificarMetodoPagamento() {
+        const pag = document.getElementById("pagamento").value;
+        document.getElementById("campoTroco").style.display = (pag === "Dinheiro") ? "block" : "none";
+        document.getElementById("campoPix").style.display = (pag === "Pix") ? "block" : "none";
+    }
+
+    function copiarPix() {
+        const chave = "61995214424";
+        navigator.clipboard.writeText(chave).then(() => {
+            alert("Chave Pix copiada!");
+        });
     }
 
     function criarBlocoAcai(numero, infoExtra = "") {
@@ -316,23 +343,30 @@
     function finalizarPedido() {
         const nome = document.getElementById("nome").value;
         const zap_cliente = document.getElementById("whatsapp_cliente").value;
+        const cid = document.getElementById("cidade").value;
         const end = document.getElementById("endereco").value;
         const pag = document.getElementById("pagamento").value;
+        const troco = document.getElementById("valorTroco").value;
+        
         if(!nome || !end || !zap_cliente) return alert("Preencha Nome, WhatsApp e Endereço!");
 
         const pedidoId = "AM-" + Date.now().toString().slice(-6);
         
-        // Prepara itens individuais para cada linha da planilha
         let itensParaPlanilha = carrinho.map(i => ({
             produto: i.nome + " " + i.tamanho,
             complementos: i.comp
         }));
 
-        let msg = `*PEDIDO #${pedidoId}* 💜\n\n*Cliente:* ${nome}\n*WhatsApp:* ${zap_cliente}\n*Endereço:* ${end}\n\n*ITENS:*`;
-        carrinho.forEach(i => { msg += `\n- ${i.nome} ${i.tamanho}\n  ${i.comp}\n`; });
-        msg += `\n*TOTAL: R$ ${valorTotalFinal.toFixed(2)}*\n*Pagamento:* ${pag}`;
+        // Tratamento da mensagem de pagamento
+        let infoPagamento = pag;
+        if(pag === "Dinheiro" && troco) {
+            infoPagamento += ` (Troco para R$ ${troco})`;
+        }
 
-        // ENVIO PARA PLANILHA (Mudar para sua URL nova)
+        let msg = `*PEDIDO #${pedidoId}* 💜\n\n*Cliente:* ${nome}\n*WhatsApp:* ${zap_cliente}\n*Cidade:* ${cid}\n*Endereço:* ${end}\n\n*ITENS:*`;
+        carrinho.forEach(i => { msg += `\n- ${i.nome} ${i.tamanho}\n  ${i.comp}\n`; });
+        msg += `\n*TOTAL: R$ ${valorTotalFinal.toFixed(2)}*\n*Pagamento:* ${infoPagamento}`;
+
         fetch('https://script.google.com/macros/s/AKfycbzYPdG111gJeR5v26HLgt-7qk2kBInHbMGUyj4iefYER3y_6Z9mYEuPwnIK7VxT9YIZEQ/exec', {
             method: 'POST',
             mode: 'no-cors',
@@ -340,10 +374,11 @@
                 id: pedidoId,
                 nome: nome,
                 whatsapp: zap_cliente,
+                cidade: cid,
                 endereco: end,
                 itens: itensParaPlanilha,
                 valorTotal: valorTotalFinal.toFixed(2),
-                pagamento: pag
+                pagamento: infoPagamento // Enviando com a info do troco para a planilha também
             })
         });
 
