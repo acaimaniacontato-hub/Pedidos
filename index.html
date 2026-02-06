@@ -17,54 +17,76 @@
         }
         
         body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--bg-dark); color: var(--texto); margin: 0; padding-bottom: 80px; }
-
-        header { 
-            background: linear-gradient(180deg, #3e0e4d 0%, var(--bg-dark) 100%); 
-            padding: 30px 20px; 
-            display: flex;
-            flex-direction: column;
-            align-items: center; 
-            justify-content: center;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
-        }
-
-        .logo-img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--roxo-vibrante); margin-bottom: 15px; object-fit: cover; box-shadow: 0 0 15px rgba(157, 52, 218, 0.4); }
-        header h1 { color: var(--dourado); margin: 0; font-size: 2.4rem; letter-spacing: -1px; line-height: 1.1; }
-        header p { color: #fff; margin: 8px 0 0 0; font-size: 1.1rem; opacity: 0.9; font-weight: 300; }
-
+        header { background: linear-gradient(180deg, #3e0e4d 0%, var(--bg-dark) 100%); padding: 30px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .logo-img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--roxo-vibrante); margin-bottom: 10px; object-fit: cover; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
         .card-secao { background: var(--card-bg); padding: 20px; border-radius: 18px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
         h2 { color: var(--dourado); font-size: 1.2rem; margin-top: 0; }
         
         input, select, textarea { width: 100%; padding: 15px; margin-top: 8px; border: 2px solid var(--roxo-vibrante); border-radius: 12px; font-size: 16px; box-sizing: border-box; background: var(--fundo-input); color: #000; font-weight: 600; }
-        textarea { height: 80px; resize: none; font-family: inherit; }
-        
+        textarea { height: 90px; resize: none; font-family: inherit; }
+
         .desc-produto { background: #fff3cd; border-left: 5px solid #ffc107; padding: 12px; margin: 15px 0; font-size: 0.9rem; color: #856404; font-weight: bold; border-radius: 8px; display: none; }
         
         .bloco-acai { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; border: 1px solid var(--roxo-vibrante); margin-bottom: 15px; }
         .titulo-acai { color: var(--dourado); font-weight: bold; margin-bottom: 10px; display: block; border-bottom: 1px solid #444; padding-bottom: 5px; }
-        
+        .tag-aviso { color: var(--alerta); font-size: 0.8rem; font-weight: 800; display: block; margin-bottom: 5px; }
+
         .grid-complementos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
         .secao-frutas { grid-column: 1 / -1; color: var(--dourado); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 5px; margin-top: 10px; }
         .item-check { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: white; cursor: pointer; }
         .item-check input { width: 20px; height: 20px; }
         
         .btn-principal { background: var(--roxo-vibrante); color: white; border: none; padding: 18px; border-radius: 12px; width: 100%; font-size: 18px; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 15px; }
-        .btn-concluir { background: var(--verde-whats); color: white; border: none; padding: 20px; border-radius: 12px; width: 100%; font-size: 20px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        
+        .btn-concluir { 
+            background: var(--verde-whats); color: white; border: none; padding: 20px; border-radius: 12px; width: 100%; font-size: 20px; font-weight: bold; cursor: pointer; margin-top: 15px;
+            box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            animation: pulse-green 2s infinite;
+        }
 
+        @keyframes pulse-green {
+            0% { transform: scale(0.98); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { transform: scale(0.98); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        
         .resumo { background: white; border: 4px solid var(--roxo-vibrante); padding: 20px; border-radius: 15px; margin-top: 25px; color: black; display: none; }
         .item-carrinho { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding: 12px 0; }
         .btn-remover { background: #ff4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+        .info-frete { color: #666; font-size: 0.9rem; margin-bottom: 5px; display: block; }
 
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
         .modal-content { background: var(--card-bg); margin: 20% auto; padding: 25px; border: 2px solid var(--roxo-vibrante); width: 85%; max-width: 400px; border-radius: 20px; text-align: center; }
         .modal-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
         .btn-modal-add { background: transparent; color: var(--dourado); border: 2px solid var(--dourado); padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
         .btn-modal-final { background: var(--verde-whats); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+
+        .btn-flutuante {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--verde-whats);
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body onload="verificarHorario()">
+
+<a href="https://wa.me/5561995214424?text=Olá! Gostaria de tirar uma dúvida sobre meu pedido." class="btn-flutuante" target="_blank">
+    <span style="font-size: 35px;">💬</span>
+</a>
 
 <div id="modalDecisao" class="modal">
     <div class="modal-content">
@@ -79,8 +101,7 @@
 
 <header>
     <img src="acai.jpeg" alt="Logo" class="logo-img">
-    <h1>Açaí Mania</h1>
-    <p>Premium Delivery</p>
+    <h1>Açaí Mania 💜</h1>
 </header>
 
 <div class="container">
@@ -89,7 +110,8 @@
     <div class="card-secao">
         <h2>📍 Entrega</h2>
         <input type="text" id="nome" placeholder="Seu Nome">
-        <input type="tel" id="whatsapp_cliente" placeholder="WhatsApp (61) 9...." onkeyup="handlePhone(event)">
+        <input type="tel" id="whatsapp_cliente" placeholder="Seu WhatsApp (61) 9...." maxlength="15" onkeyup="handlePhone(event)">
+        
         <select id="cidade" onchange="atualizarResumo()">
             <option value="Itapoá Parque">Itapoá Parque (Grátis)</option>
             <option value="Itapoá I">Itapoá I</option>
@@ -102,21 +124,23 @@
             <option value="Cond. La Font">Cond. La Font (R$ 8,00)</option>
         </select>
         <input type="text" id="endereco" placeholder="Endereço Completo">
-        <textarea id="observacao" placeholder="Obs: Interfone, portaria, tirar algo..."></textarea>
+        <textarea id="observacao" placeholder="Alguma observação? (Ex: Retirar amendoim, troco para R$ 50, campainha estragada...)"></textarea>
     </div>
 
-    <div class="card-secao">
+    <div class="card-secao" id="secaoProdutos">
         <h2>🥤 Produto</h2>
         <select id="produto" onchange="atualizarOpcoes()">
-            <option value="">Escolha um produto...</option>
+            <option value="">Escolha aqui...</option>
             <optgroup label="Açaís e Cupuaçu">
                 <option value="Açaí Tradicional" data-desc="💜 Açaí cremoso batido na hora!" data-qtd="1">Açaí Tradicional (Sem Nutella)</option>
                 <option value="Açaí com Nutella" data-desc="🍫 Açaí premium com Nutella autêntica." data-qtd="1">Açaí com Nutella</option>
                 <option value="Cupuaçu" data-desc="⚪ Polpa de cupuaçu pura e cremosa." data-qtd="1">Cupuaçu Puro</option>
             </optgroup>
-            <optgroup label="Combos">
+            <optgroup label="Combos Especiais">
                 <option value="Combo Casal" data-fixo="36.00" data-desc="👉 2 Açaís de 400 ml com Nutella." data-qtd="2">Combo Casal — R$ 36,00</option>
-                <option value="Combo Família" data-fixo="54.00" data-desc="👨‍👩‍👧‍👦 3 Açaís de 400 ml com Nutella." data-qtd="3">Combo Família — R$ 54,00</option>
+                <option value="Combo Família" data-fixo="54.00" data-desc="👨‍👩‍👧‍👦 Combo Família: 3 Açaís de 400 ml com Nutella." data-qtd="3">Combo Família — R$ 54,00</option>
+                <option value="Combo Família Mix" data-fixo="51.00" data-desc="👨‍👩‍👧‍👦 Combo Família Mix: 2 Açaís de 400 ml com Nutella + 1 Açaí de 400 ml sem Nutella." data-qtd="3">Combo Família Mix — R$ 51,00</option>
+                <option value="Combo Mania" data-fixo="28.00" data-desc="🍓🍫 500 ml Casadinho com Nutella." data-qtd="1">Combo Mania — R$ 28,00</option>
             </optgroup>
         </select>
 
@@ -127,43 +151,28 @@
                 <label style="color:var(--dourado); font-weight:bold; display:block; margin-top:10px;">Tamanho:</label>
                 <select id="tamanho" onchange="atualizarResumo()"></select>
             </div>
-            
             <div id="containerAcais"></div>
-            
-            <div id="secaoExtrasPagos" style="margin-top: 15px;">
-                <div class="bloco-acai" style="border: 2px solid var(--dourado); background: rgba(255, 207, 75, 0.1);">
-                    <span class="titulo-acai" style="color: var(--dourado);">➕ Adicionais Extras (Opcional):</span>
-                    <div class="grid-complementos">
-                        <label class="item-check"><input type="checkbox" class="extra-item" data-price="4.00" value="Nutella Extra"> Nutella (+R$4)</label>
-                        <label class="item-check"><input type="checkbox" class="extra-item" data-price="3.00" value="Leite Ninho"> Ninho (+R$3)</label>
-                        <label class="item-check"><input type="checkbox" class="extra-item" data-price="2.50" value="Ouro Branco"> Ouro Branco (+R$2,5)</label>
-                        <label class="item-check"><input type="checkbox" class="extra-item" data-price="3.00" value="Morango Extra"> + Morango (+R$3)</label>
-                    </div>
-                </div>
-            </div>
         </div>
-
-        <button id="btnAdicionar" class="btn-principal" onclick="adicionarItem()">+ ADICIONAR AO PEDIDO</button>
+        <button class="btn-principal" onclick="adicionarItem()">+ ADICIONAR AO PEDIDO</button>
     </div>
 
     <div class="card-secao">
         <h2>💳 Pagamento</h2>
-        <select id="pagamento" onchange="verificarMetodoPagamento()">
-            <option value="Pix">Pix</option>
-            <option value="Cartão">Cartão</option>
+        <select id="pagamento">
+            <option value="Pix">Pix (Chave: 61995214424)</option>
+            <option value="Cartão">Cartão na Entrega</option>
             <option value="Dinheiro">Dinheiro</option>
         </select>
-        <div id="campoTroco" style="display:none;"><input type="number" id="valorTroco" placeholder="Troco para quanto?"></div>
     </div>
 
     <div id="resumo" class="resumo">
-        <h3>🛒 Seu Pedido</h3>
+        <h3 style="margin-top:0;">🛒 Seu Pedido</h3>
         <div id="listaItens"></div>
-        <div style="text-align:right; margin-top:10px;">
-            <span id="txtFrete">Frete: R$ 0,00</span>
+        <div id="detalheFinanceiro" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px; text-align:right;">
+            <span class="info-frete" id="txtFrete">Frete: R$ 0,00</span>
         </div>
         <div id="total" style="font-size:1.5rem; font-weight:800; text-align:center; margin:10px 0;"></div>
-        <button class="btn-concluir" onclick="finalizarPedido()">CONCLUIR NO WHATSAPP</button>
+        <button class="btn-concluir" onclick="finalizarPedido()">CONCLUIR PEDIDO</button>
     </div>
 </div>
 
@@ -171,139 +180,184 @@
     let carrinho = [];
     let valorTotalFinal = 0;
 
+    function fecharModal() {
+        document.getElementById("modalDecisao").style.display = "none";
+        document.getElementById("produto").value = "";
+        document.getElementById("boxEscolhas").style.display = "none";
+        document.getElementById("descProduto").style.display = "none";
+    }
+
+    function irParaResumo() {
+        document.getElementById("modalDecisao").style.display = "none";
+        document.getElementById("resumo").scrollIntoView({ behavior: 'smooth' });
+    }
+
     function handlePhone(event) {
-        let v = event.target.value.replace(/\D/g, "");
-        v = v.replace(/(\d{2})(\d)/, "($1) $2");
-        v = v.replace(/(\d{5})(\d)/, "$1-$2");
-        event.target.value = v;
+        let input = event.target;
+        input.value = phoneMask(input.value);
+    }
+
+    function phoneMask(value) {
+        if (!value) return "";
+        value = value.replace(/\D/g, "");
+        value = value.replace(/(\d{2})(\d)/, "($1) $2");
+        value = value.replace(/(\d{5})(\d)/, "$1-$2");
+        return value;
+    }
+
+    function limitarFruta(checkbox, grupo) {
+        document.querySelectorAll(`.fruta-check-${grupo}`).forEach(c => { if(c !== checkbox) c.checked = false; });
     }
 
     function verificarHorario() {
-        const h = new Date().getHours();
+        const hora = new Date().getHours();
         const s = document.getElementById("statusLoja");
-        if(h >= 10 && h < 23) {
-            s.innerHTML = "🟢 ABERTO AGORA"; s.style.background = "#25d366";
-        } else {
-            s.innerHTML = "🔴 FECHADO NO MOMENTO"; s.style.background = "#ff4444";
-        }
+        // Horário ajustado: das 10:00 até as 22:00
+        if(hora >= 10 && hora < 22) { s.innerHTML = "🟢 ABERTO"; s.style.background = "#25d366"; }
+        else { s.innerHTML = "🔴 FECHADO"; s.style.background = "#ff4444"; }
+    }
+
+    function criarBlocoAcai(numero, infoExtra = "") {
+        return `
+            <div class="bloco-acai">
+                ${infoExtra ? `<span class="tag-aviso">${infoExtra}</span>` : ''}
+                <span class="titulo-acai">Açaí 0${numero} - Escolha os Complementos:</span>
+                <div class="grid-complementos">
+                    <div class="secao-frutas">🍎 Fruta (Escolha uma):</div>
+                    <label class="item-check"><input type="checkbox" class="fruta-check-${numero}" value="Banana" onclick="limitarFruta(this, ${numero})"> 🍌 Banana</label>
+                    <label class="item-check"><input type="checkbox" class="fruta-check-${numero}" value="Morango" onclick="limitarFruta(this, ${numero})"> 🍓 Morango</label>
+                    <div class="secao-frutas">✨ Outros:</div>
+                    <label class="item-check"><input type="checkbox" class="comp-${numero}" value="Leite em Pó"> Leite em Pó</label>
+                    <label class="item-check"><input type="checkbox" class="comp-${numero}" value="Granola"> Granola</label>
+                    <label class="item-check"><input type="checkbox" class="comp-${numero}" value="Paçoca"> Paçoca</label>
+                    <label class="item-check"><input type="checkbox" class="comp-${numero}" value="Amendoin"> Amendoin</label>
+                    <label class="item-check"><input type="checkbox" class="comp-${numero}" value="Leite Condensado"> Leite Condensado</label>
+                </div>
+            </div>`;
     }
 
     function atualizarOpcoes() {
-        const p = document.getElementById("produto");
+        const pSel = document.getElementById("produto");
+        const pValue = pSel.value;
         const box = document.getElementById("boxEscolhas");
         const container = document.getElementById("containerAcais");
-        const desc = document.getElementById("descProduto");
-
-        if(!p.value) { box.style.display = "none"; desc.style.display = "none"; return; }
-
-        desc.innerHTML = p.options[p.selectedIndex].getAttribute("data-desc");
-        desc.style.display = "block";
+        const descDiv = document.getElementById("descProduto");
+        if(!pValue) { box.style.display = "none"; descDiv.style.display = "none"; return; }
+        descDiv.innerHTML = pSel.options[pSel.selectedIndex].getAttribute("data-desc");
+        descDiv.style.display = "block";
         box.style.display = "block";
-
-        const qtd = parseInt(p.options[p.selectedIndex].getAttribute("data-qtd"));
+        const qtd = parseInt(pSel.options[pSel.selectedIndex].getAttribute("data-qtd"));
         container.innerHTML = "";
         for(let i=1; i<=qtd; i++) {
-            container.innerHTML += `
-            <div class="bloco-acai">
-                <span class="titulo-acai">Pote 0${i}:</span>
-                <div class="grid-complementos">
-                    <div class="secao-frutas">Fruta:</div>
-                    <label class="item-check"><input type="checkbox" class="fruta-${i}" value="Banana" onclick="soUmaFruta(this, ${i})"> Banana</label>
-                    <label class="item-check"><input type="checkbox" class="fruta-${i}" value="Morango" onclick="soUmaFruta(this, ${i})"> Morango</label>
-                    <div class="secao-frutas">Outros:</div>
-                    <label class="item-check"><input type="checkbox" class="comp-${i}" value="Leite em Pó"> Leite em Pó</label>
-                    <label class="item-check"><input type="checkbox" class="comp-${i}" value="Granola"> Granola</label>
-                    <label class="item-check"><input type="checkbox" class="comp-${i}" value="Paçoca"> Paçoca</label>
-                    <label class="item-check"><input type="checkbox" class="comp-${i}" value="Leite Condensado"> Leite Condensado</label>
-                </div>
-            </div>`;
+            let aviso = (pValue === "Combo Família Mix" && i === 3) ? "⚠️ ESTE AÇAÍ É O SEM NUTELLA" : "";
+            container.innerHTML += criarBlocoAcai(i, aviso);
         }
-
-        const tBox = document.getElementById("boxTamanho");
+        const boxT = document.getElementById("boxTamanho");
         const tSel = document.getElementById("tamanho");
-        if(p.value.includes("Combo")) {
-            tBox.style.display = "none";
+        if(pValue.includes("Combo")) {
+            boxT.style.display = "none";
         } else {
-            tBox.style.display = "block";
-            tSel.innerHTML = p.value === "Açaí Tradicional" ? 
-                '<option value="12">300ml - R$ 12</option><option value="16">400ml - R$ 16</option><option value="20">500ml - R$ 20</option>' :
-                '<option value="15">300ml - R$ 15</option><option value="19">400ml - R$ 19</option><option value="23">500ml - R$ 23</option>';
+            boxT.style.display = "block";
+            if(pValue === "Açaí Tradicional") {
+                tSel.innerHTML = '<option value="12">300ml - R$ 12</option><option value="16">400ml - R$ 16</option><option value="20">500ml - R$ 20</option>';
+            } else if(pValue === "Açaí com Nutella") {
+                tSel.innerHTML = '<option value="15">300ml - R$ 15</option><option value="19">400ml - R$ 19</option><option value="23">500ml - R$ 23</option>';
+            } else {
+                tSel.innerHTML = '<option value="15">300ml - R$ 15</option><option value="16">400ml - R$ 16</option><option value="20">500ml - R$ 20</option>';
+            }
         }
-    }
-
-    function soUmaFruta(ck, g) {
-        document.querySelectorAll(`.fruta-${g}`).forEach(c => { if(c !== ck) c.checked = false; });
     }
 
     function adicionarItem() {
-        const p = document.getElementById("produto");
-        let vBase = p.value.includes("Combo") ? parseFloat(p.options[p.selectedIndex].getAttribute("data-fixo")) : parseFloat(document.getElementById("tamanho").value);
-        
-        let vExtras = 0;
-        let exNomes = [];
-        document.querySelectorAll('.extra-item:checked').forEach(ex => {
-            vExtras += parseFloat(ex.getAttribute('data-price'));
-            exNomes.push(ex.value);
-        });
-
-        const qtd = parseInt(p.options[p.selectedIndex].getAttribute("data-qtd"));
-        let comps = [];
+        const pSel = document.getElementById("produto");
+        const pValue = pSel.value;
+        if(!pValue) return alert("Escolha um produto!");
+        const qtd = parseInt(pSel.options[pSel.selectedIndex].getAttribute("data-qtd"));
+        let todosComplementos = [];
         for(let i=1; i<=qtd; i++) {
-            let pEscolhas = [];
-            document.querySelectorAll(`.fruta-${i}:checked, .comp-${i}:checked`).forEach(c => pEscolhas.push(c.value));
-            comps.push(`Pote 0${i}: [${pEscolhas.join(", ") || "Só Açaí"}]`);
+            let compsPote = [];
+            document.querySelectorAll(`.fruta-check-${i}:checked`).forEach(c => compsPote.push(c.value));
+            document.querySelectorAll(`.comp-${i}:checked`).forEach(c => compsPote.push(c.value));
+            let labelAçai = `Açaí 0${i}`;
+            if(pValue === "Combo Família Mix" && i === 3) labelAçai = "Açaí 03 (Sem Nutella)";
+            todosComplementos.push(`${labelAçai}: [${compsPote.join(", ") || "Nenhum"}]`);
         }
-
-        if(exNomes.length > 0) comps.push(`ADICIONAIS PAGOS: ${exNomes.join(", ")}`);
-
+        const nomeP = pSel.options[pSel.selectedIndex].text.split('—')[0];
+        let valor = pValue.includes("Combo") ? parseFloat(pSel.options[pSel.selectedIndex].getAttribute("data-fixo")) : parseFloat(document.getElementById("tamanho").value);
         carrinho.push({
-            nome: p.options[p.selectedIndex].text.split('—')[0].trim(),
-            tam: p.value.includes("Combo") ? "" : document.getElementById("tamanho").options[document.getElementById("tamanho").selectedIndex].text.split('-')[0].trim(),
-            valor: vBase + vExtras,
-            detalhe: comps.join("\n")
+            nome: nomeP.trim(),
+            tamanho: pValue.includes("Combo") ? "" : document.getElementById("tamanho").options[document.getElementById("tamanho").selectedIndex].text.split('-')[0].trim(),
+            valor: valor,
+            comp: todosComplementos.join(" | ")
         });
-
-        document.querySelectorAll('.extra-item').forEach(x => x.checked = false);
         document.getElementById("modalDecisao").style.display = "block";
         atualizarResumo();
     }
 
     function atualizarResumo() {
-        const r = document.getElementById("resumo");
-        if(carrinho.length === 0) { r.style.display = "none"; return; }
-        r.style.display = "block";
-        let h = ""; let sub = 0;
-        carrinho.forEach((item, idx) => {
-            sub += item.valor;
-            h += `<div class="item-carrinho"><span><b>${item.nome} ${item.tam}</b><br><small>${item.detalhe.replace(/\n/g, '<br>')}</small></span><button class="btn-remover" onclick="carrinho.splice(${idx},1); atualizarResumo();">X</button></div>`;
+        const res = document.getElementById("resumo");
+        if(carrinho.length === 0) { res.style.display = "none"; return; }
+        res.style.display = "block";
+        let html = "";
+        let subtotal = 0;
+        carrinho.forEach((i, idx) => {
+            subtotal += i.valor;
+            html += `<div class="item-carrinho">
+                <span><b>${i.nome} ${i.tamanho}</b><br><small>${i.comp}</small></span>
+                <button class="btn-remover" onclick="carrinho.splice(${idx},1); atualizarResumo();">Remover</button>
+            </div>`;
         });
         const cid = document.getElementById("cidade").value;
-        let f = (cid.includes("Lago") || cid.includes("Paranoá")) ? 7 : (cid.includes("Cond.") ? 8 : 0);
-        valorTotalFinal = sub + f;
-        document.getElementById("listaItens").innerHTML = h;
-        document.getElementById("txtFrete").innerHTML = `Frete: R$ ${f.toFixed(2)}`;
+        let frete = (cid === "Itapoá - Del Lago" || cid === "Paranoá" || cid === "Paranoá Parque") ? 7 : (cid.includes("Cond.") ? 8 : 0);
+        document.getElementById("txtFrete").innerHTML = frete > 0 ? `Frete: R$ ${frete.toFixed(2)}` : `Frete: GRÁTIS`;
+        valorTotalFinal = subtotal + frete;
+        document.getElementById("listaItens").innerHTML = html;
         document.getElementById("total").innerHTML = `TOTAL: R$ ${valorTotalFinal.toFixed(2)}`;
     }
 
-    function fecharModal() { document.getElementById("modalDecisao").style.display = "none"; document.getElementById("produto").value = ""; atualizarOpcoes(); }
-    function irParaResumo() { document.getElementById("modalDecisao").style.display = "none"; document.getElementById("resumo").scrollIntoView({behavior: 'smooth'}); }
-    function verificarMetodoPagamento() { document.getElementById("campoTroco").style.display = (document.getElementById("pagamento").value === "Dinheiro") ? "block" : "none"; }
-
     function finalizarPedido() {
-        const n = document.getElementById("nome").value;
-        const e = document.getElementById("endereco").value;
-        const o = document.getElementById("observacao").value;
-        if(!n || !e) return alert("Nome e Endereço são obrigatórios!");
-
-        let m = `*NOVO PEDIDO* 💜\n\n*Cliente:* ${n}\n*Endereço:* ${e}\n`;
-        if(o) m += `*Obs:* ${o}\n`;
-        m += `\n*ITENS:*`;
-        carrinho.forEach(i => { m += `\n- ${i.nome} ${i.tam}\n${i.detalhe}\n`; });
-        m += `\n*TOTAL: R$ ${valorTotalFinal.toFixed(2)}*\n*Pagamento:* ${document.getElementById("pagamento").value}`;
+        const nome = document.getElementById("nome").value;
+        const zap_cliente = document.getElementById("whatsapp_cliente").value;
+        const cid = document.getElementById("cidade").value;
+        const end = document.getElementById("endereco").value;
+        const pag = document.getElementById("pagamento").value;
+        const obs = document.getElementById("observacao").value;
         
-        window.location.href = `https://wa.me/5561995214424?text=${encodeURIComponent(m)}`;
+        if(!nome || !end || !zap_cliente) return alert("Preencha Nome, WhatsApp e Endereço!");
+
+        const pedidoId = "AM-" + Date.now().toString().slice(-6);
+        
+        let itensParaPlanilha = carrinho.map(i => ({
+            produto: i.nome + " " + i.tamanho,
+            complementos: i.comp
+        }));
+
+        let msg = `*PEDIDO #${pedidoId}* 💜\n\n*Cliente:* ${nome}\n*WhatsApp:* ${zap_cliente}\n*Cidade:* ${cid}\n*Endereço:* ${end}\n`;
+        
+        if(obs) { msg += `*Obs:* ${obs}\n`; }
+        
+        msg += `\n*ITENS:*`;
+        carrinho.forEach(i => { msg += `\n- ${i.nome} ${i.tamanho}\n  ${i.comp}\n`; });
+        msg += `\n*TOTAL: R$ ${valorTotalFinal.toFixed(2)}*\n*Pagamento:* ${pag}`;
+
+        fetch('https://script.google.com/macros/s/AKfycbzYPdG111gJeR5v26HLgt-7qk2kBInHbMGUyj4iefYER3y_6Z9mYEuPwnIK7VxT9YIZEQ/exec', {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({
+                id: pedidoId,
+                nome: nome,
+                whatsapp: zap_cliente,
+                cidade: cid,
+                endereco: end,
+                observacao: obs,
+                itens: itensParaPlanilha,
+                valorTotal: valorTotalFinal.toFixed(2),
+                pagamento: pag
+            })
+        });
+
+        window.location.href = `https://wa.me/5561995214424?text=${encodeURIComponent(msg)}`;
     }
 </script>
 </body>
 </html>
-
