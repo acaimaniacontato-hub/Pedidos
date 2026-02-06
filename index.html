@@ -14,6 +14,7 @@
             --dourado: #ffcf4b; 
             --fundo-input: #ffffff;
             --alerta: #ff4444;
+            --desativado: #555555;
         }
         
         body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--bg-dark); color: var(--texto); margin: 0; padding-bottom: 80px; }
@@ -43,6 +44,15 @@
             background: var(--verde-whats); color: white; border: none; padding: 20px; border-radius: 12px; width: 100%; font-size: 20px; font-weight: bold; cursor: pointer; margin-top: 15px;
             box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
             animation: pulse-green 2s infinite;
+        }
+
+        /* Estilo para botões desativados */
+        .btn-disabled {
+            background-color: var(--desativado) !important;
+            cursor: not-allowed !important;
+            animation: none !important;
+            box-shadow: none !important;
+            opacity: 0.6;
         }
 
         @keyframes pulse-green {
@@ -153,7 +163,7 @@
             </div>
             <div id="containerAcais"></div>
         </div>
-        <button class="btn-principal" onclick="adicionarItem()">+ ADICIONAR AO PEDIDO</button>
+        <button id="btnAdicionar" class="btn-principal" onclick="adicionarItem()">+ ADICIONAR AO PEDIDO</button>
     </div>
 
     <div class="card-secao">
@@ -172,13 +182,14 @@
             <span class="info-frete" id="txtFrete">Frete: R$ 0,00</span>
         </div>
         <div id="total" style="font-size:1.5rem; font-weight:800; text-align:center; margin:10px 0;"></div>
-        <button class="btn-concluir" onclick="finalizarPedido()">CONCLUIR PEDIDO</button>
+        <button id="btnFinalizar" class="btn-concluir" onclick="finalizarPedido()">CONCLUIR PEDIDO</button>
     </div>
 </div>
 
 <script>
     let carrinho = [];
     let valorTotalFinal = 0;
+    let lojaAberta = true; // Variável de controle
 
     function fecharModal() {
         document.getElementById("modalDecisao").style.display = "none";
@@ -212,9 +223,26 @@
     function verificarHorario() {
         const hora = new Date().getHours();
         const s = document.getElementById("statusLoja");
-        // Horário ajustado: das 10:00 até as 22:00
-        if(hora >= 10 && hora < 22) { s.innerHTML = "🟢 ABERTO"; s.style.background = "#25d366"; }
-        else { s.innerHTML = "🔴 FECHADO"; s.style.background = "#ff4444"; }
+        const btnAdd = document.getElementById("btnAdicionar");
+        const btnFin = document.getElementById("btnFinalizar");
+
+        // Horário: das 10:00 até as 22:00
+        if(hora >= 10 && hora < 22) { 
+            s.innerHTML = "🟢 ABERTO"; 
+            s.style.background = "#25d366"; 
+            lojaAberta = true;
+            btnAdd.classList.remove("btn-disabled");
+            btnFin.classList.remove("btn-disabled");
+            btnAdd.innerText = "+ ADICIONAR AO PEDIDO";
+        } else { 
+            s.innerHTML = "🔴 FECHADO NO MOMENTO"; 
+            s.style.background = "#ff4444"; 
+            lojaAberta = false;
+            btnAdd.classList.add("btn-disabled");
+            btnFin.classList.add("btn-disabled");
+            btnAdd.innerText = "LOJA FECHADA";
+            btnFin.innerText = "LOJA FECHADA";
+        }
     }
 
     function criarBlocoAcai(numero, infoExtra = "") {
@@ -269,6 +297,8 @@
     }
 
     function adicionarItem() {
+        if(!lojaAberta) return alert("Desculpe, a loja está fechada no momento!");
+        
         const pSel = document.getElementById("produto");
         const pValue = pSel.value;
         if(!pValue) return alert("Escolha um produto!");
@@ -316,6 +346,8 @@
     }
 
     function finalizarPedido() {
+        if(!lojaAberta) return alert("Loja Fechada! Não é possível processar o pedido.");
+        
         const nome = document.getElementById("nome").value;
         const zap_cliente = document.getElementById("whatsapp_cliente").value;
         const cid = document.getElementById("cidade").value;
