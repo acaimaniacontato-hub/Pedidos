@@ -181,7 +181,7 @@
     function verificarHorario() {
         const h = new Date().getHours();
         const s = document.getElementById("statusLoja");
-        if(h >= 10 && h < 22) {
+        if(h >= 10 && h < 23) {
             s.innerHTML = "🟢 ABERTO AGORA"; s.style.background = "#25d366";
         } else {
             s.innerHTML = "🔴 FECHADO NO MOMENTO"; s.style.background = "#ff4444";
@@ -306,3 +306,4 @@
 </script>
 </body>
 </html>
+
