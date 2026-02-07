@@ -46,7 +46,28 @@
             animation: pulse-green 2s infinite;
         }
 
-        /* Estilo para botões desativados */
+        /* Estilo do Botão Copiar Pix */
+        .box-pix { 
+            background: rgba(255,255,255,0.1); 
+            padding: 15px; 
+            border-radius: 12px; 
+            margin-top: 10px; 
+            text-align: center; 
+            display: none; 
+            border: 1px dashed var(--dourado);
+        }
+        .btn-copiar { 
+            background: var(--dourado); 
+            color: #000; 
+            border: none; 
+            padding: 10px; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            margin-top: 10px; 
+            width: 100%;
+        }
+
         .btn-disabled {
             background-color: var(--desativado) !important;
             cursor: not-allowed !important;
@@ -168,11 +189,17 @@
 
     <div class="card-secao">
         <h2>💳 Pagamento</h2>
-        <select id="pagamento">
-            <option value="Pix">Pix (Chave E-mail: gisele-64966431-44d@jim.com)</option>
+        <select id="pagamento" onchange="verificarPix()">
+            <option value="Pix">Pix (Chave E-mail)</option>
             <option value="Cartão">Cartão na Entrega</option>
             <option value="Dinheiro">Dinheiro</option>
         </select>
+        
+        <div id="boxPix" class="box-pix">
+            <small style="color: var(--dourado);">Chave Pix (E-mail):</small><br>
+            <strong id="chavePix">gisele-64966431-44d@jim.com</strong><br>
+            <button class="btn-copiar" onclick="copiarChave()">📋 COPIAR CHAVE PIX</button>
+        </div>
     </div>
 
     <div id="resumo" class="resumo">
@@ -189,7 +216,22 @@
 <script>
     let carrinho = [];
     let valorTotalFinal = 0;
-    let lojaAberta = true; // Variável de controle
+    let lojaAberta = true;
+
+    // Função para mostrar/esconder o box do Pix e Copiar
+    function verificarPix() {
+        const pag = document.getElementById("pagamento").value;
+        const box = document.getElementById("boxPix");
+        box.style.display = (pag === "Pix") ? "block" : "none";
+    }
+
+    // Função para copiar a chave
+    function copiarChave() {
+        const chave = document.getElementById("chavePix").innerText;
+        navigator.clipboard.writeText(chave).then(() => {
+            alert("Chave Pix copiada!");
+        });
+    }
 
     function fecharModal() {
         document.getElementById("modalDecisao").style.display = "none";
@@ -226,7 +268,7 @@
         const btnAdd = document.getElementById("btnAdicionar");
         const btnFin = document.getElementById("btnFinalizar");
 
-        // Horário: das 10:00 até as 22:00
+        // Mantendo seu horário de 10h as 22h
         if(hora >= 10 && hora < 22) { 
             s.innerHTML = "🟢 ABERTO"; 
             s.style.background = "#25d366"; 
@@ -243,6 +285,7 @@
             btnAdd.innerText = "LOJA FECHADA";
             btnFin.innerText = "LOJA FECHADA";
         }
+        verificarPix(); // Inicia a verificação do pix ao carregar
     }
 
     function criarBlocoAcai(numero, infoExtra = "") {
@@ -393,4 +436,3 @@
 </script>
 </body>
 </html>
-
