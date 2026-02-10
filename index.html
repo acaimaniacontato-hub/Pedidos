@@ -166,6 +166,7 @@
                 <option value="Açaí Tradicional" data-desc="💜 Açaí cremoso batido na hora!" data-qtd="1">Açaí Tradicional (Sem Nutella)</option>
                 <option value="Açaí com Nutella" data-desc="🍫 Açaí premium com Nutella autêntica." data-qtd="1">Açaí com Nutella</option>
                 <option value="Cupuaçu" data-desc="⚪ Polpa de cupuaçu pura e cremosa." data-qtd="1">Cupuaçu Puro</option>
+                <option value="Casadinho" data-desc="🌗 Metade açaí e metade cupuaçu." data-qtd="1">Casadinho (Açaí + Cupuaçu)</option>
             </optgroup>
             <optgroup label="Combos Especiais">
                 <option value="Combo Casal" data-fixo="36.00" data-desc="👉 2 Açaís de 400 ml com Nutella." data-qtd="2">Combo Casal — R$ 36,00</option>
@@ -268,7 +269,6 @@
         const btnAdd = document.getElementById("btnAdicionar");
         const btnFin = document.getElementById("btnFinalizar");
 
-        // Mantendo seu horário de 10h as 22h
         if(hora >= 10 && hora < 22) { 
             s.innerHTML = "🟢 ABERTO"; 
             s.style.background = "#25d366"; 
@@ -285,7 +285,7 @@
             btnAdd.innerText = "LOJA FECHADA";
             btnFin.innerText = "LOJA FECHADA";
         }
-        verificarPix(); // Inicia a verificação do pix ao carregar
+        verificarPix(); 
     }
 
     function criarBlocoAcai(numero, infoExtra = "") {
@@ -333,6 +333,8 @@
                 tSel.innerHTML = '<option value="12">300ml - R$ 12</option><option value="16">400ml - R$ 16</option><option value="20">500ml - R$ 20</option>';
             } else if(pValue === "Açaí com Nutella") {
                 tSel.innerHTML = '<option value="15">300ml - R$ 15</option><option value="19">400ml - R$ 19</option><option value="23">500ml - R$ 23</option>';
+            } else if(pValue === "Casadinho") {
+                tSel.innerHTML = '<option value="14">300ml - R$ 14</option><option value="18">400ml - R$ 18</option><option value="22">500ml - R$ 22</option>';
             } else {
                 tSel.innerHTML = '<option value="15">300ml - R$ 15</option><option value="16">400ml - R$ 16</option><option value="20">500ml - R$ 20</option>';
             }
