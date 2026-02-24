@@ -399,7 +399,7 @@
                     <option value="Dinheiro">Dinheiro</option>
                 </select>
 
-                <button class="btn-monte" style="background: #25d366; width:100%" onclick="enviarZap()">Enviar Pedido</button>
+               <button id="btn-enviar" class="btn-monte" style="background: #25d366; width:100%" onclick="enviarZap()">Enviar Pedido</button>
             </div>
         </div>
     </div>
@@ -426,17 +426,31 @@ function atualizarStatusLoja() {
 
     const statusBox = document.getElementById('status-box');
     const statusTexto = document.getElementById('status-texto');
+    const botao = document.getElementById('btn-enviar');
 
     if (hora >= 10 && hora < 22) {
         lojaAberta = true;
 
         statusBox.className = 'status-loja loja-aberta';
         statusTexto.innerText = 'Aberto • até 22:00';
+
+        if (botao) {
+            botao.disabled = false;
+            botao.style.opacity = "1";
+            botao.innerText = "Enviar Pedido";
+        }
+
     } else {
         lojaAberta = false;
 
         statusBox.className = 'status-loja loja-fechada';
         statusTexto.innerText = 'Fechado • abre às 10:00';
+
+        if (botao) {
+            botao.disabled = true;
+            botao.style.opacity = "0.5";
+            botao.innerText = "Loja Fechada";
+        }
     }
 }
 atualizarStatusLoja();
