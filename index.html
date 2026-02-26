@@ -87,7 +87,7 @@
         .btn-limpar { background: none; color: var(--cor-fechado); border: 1px solid var(--cor-fechado); padding: 5px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: 0.3s; margin-bottom: 10px; display: inline-flex; align-items: center; gap: 5px; }
         .btn-limpar:hover { background: var(--cor-fechado); color: white; }
 
-        .card-combo { padding: 25px; border: 2px solid transparent; position: relative; background: #fff; z-index: 1; }
+        .card-combo { padding: 10px; border: 2px solid transparent; position: relative; background: #fff; z-index: 1; }
         
         .card-combo::before {
             content: "";
@@ -106,9 +106,18 @@
         .combo-economico::before { background-image: url('acai-simples.jpg'); }
 
         .card-combo.destaque { border: 2px solid var(--amarelo); }
-        .combo-info { display: flex; gap: 15px; align-items: center; margin-bottom: 15px; text-align: left; position: relative; z-index: 2; }
-        .combo-icon { width: 45px; height: 45px; background: var(--amarelo); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--roxo-escuro); font-size: 1.2rem; flex-shrink: 0; }
-        .preco-combo { font-size: 1.4rem; font-weight: 800; color: var(--roxo-escuro); position: relative; z-index: 2; }
+        .combo-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.combo-info i {
+    font-size: 22px;
+    color: #6a1b9a;
+}
+        .combo-icon { width: 45px; height: 45px; background: var(--amarelo); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--roxo-escuro); font-size: 1.9rem; flex-shrink: 0; }
+        .preco-combo { font-size: 1.4rem; font-weight: 800; color: var(--roxo-escuro); position: relative; z-index: 2; white-space: nowrap; }
 
         .op-item.selecionado { border: 2px solid var(--roxo-principal); background: #f3e5f5; font-weight: bold; }
         .op-item.multi-select.selecionado { background: var(--amarelo); border-color: var(--roxo-escuro); }
@@ -206,24 +215,79 @@
         <p class="secao-subtitulo">Os favoritos com desconto</p>
         <div class="grid-layout">
             <div class="card-combo destaque combo-casal" onclick="abrirModalCombo('Combo Casal', 36.00, 2)">
-                <div class="combo-info"><div class="combo-icon"><i class="fas fa-heart"></i></div><div><h4>Combo Casal</h4><p>2 Açaí 400ml com Nutella</p></div></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; position: relative; z-index: 2;"><span class="preco-combo">R$ 36,00</span><button class="btn-monte" style="width:auto; padding: 8px 20px;">🛒 Quero esse</button></div>
+                <div class="combo-info">
+    <div class="combo-icon">
+        <i class="fas fa-heart"></i>
+    </div>
+
+    <h4>Combo Casal</h4>
+</div>
+
+<p>2 Açaí 400ml com Nutella</p>
+                <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+    <span class="preco-combo">R$ 36,00</span>
+    <button class="btn-monte" style="width:80%; padding: 10px;">🛒 Quero esse</button>
+</div>
             </div>
             <div class="card-combo destaque combo-mania" onclick="abrirModalCombo('Combo Mania', 28.00, 1)">
-                <div class="combo-info"><div class="combo-icon"><i class="fas fa-star"></i></div><div><h4>Combo Mania</h4><p>1 Açaí 500ml com Nutella</p></div></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; position: relative; z-index: 2;"><span class="preco-combo">R$ 28,00</span><button class="btn-monte" style="width:auto; padding: 8px 20px;">🛒 Quero esse</button></div>
+               <div class="combo-info">
+    <div class="combo-icon">
+        <i class="fas fa-star"></i>
+    </div>
+
+    <h4>Combo Mania</h4>
+</div>
+
+<p>1 Açaí 500ml com Nutella</p>
+                <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+    <span class="preco-combo">R$ 28,00</span>
+    <button class="btn-monte" style="width:80%; padding: 10px;">🛒 Quero esse</button>
+</div>
             </div>
             <div class="card-combo destaque combo-familia Mix" onclick="abrirModalCombo('Combo Família Mix', 52.00, 3)">
-                <div class="combo-info"><div class="combo-icon"><i class="fas fa-users"></i></div><div><h4>Combo Família Mix</h4><p>3 Açaí 400ml - 2 com Nutella e 1 sem Nutella</p></div></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; position: relative; z-index: 2;"><span class="preco-combo">R$ 52,00</span><button class="btn-monte" style="width:auto; padding: 8px 20px;">🛒 Quero esse</button></div>
+               <div class="combo-info">
+    <div class="combo-icon">
+        <i class="fas fa-users"></i>
+    </div>
+
+    <h4>Combo Família Mix</h4>
+</div>
+
+<p>3 Açaí 400ml - 2 com Nutella e 1 sem Nutella</p>
+                <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+    <span class="preco-combo">R$ 51,00</span>
+    <button class="btn-monte" style="width:80%; padding: 10px;">🛒 Quero esse</button>
+</div>
             </div>
              <div class="card-combo destaque combo-familia" onclick="abrirModalCombo('Combo Família', 52.00, 3)">
-                <div class="combo-info"><div class="combo-icon"><i class="fas fa-users"></i></div><div><h4>Combo Família</h4><p>3 Açaí 400ml com Nutella</p></div></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; position: relative; z-index: 2;"><span class="preco-combo">R$ 52,00</span><button class="btn-monte" style="width:auto; padding: 8px 20px;">🛒 Quero esse</button></div>
+                <div class="combo-info">
+    <div class="combo-icon">
+        <i class="fas fa-users"></i>
+    </div>
+
+    <h4>Combo Família</h4>
+</div>
+
+<p>3 Açaí 400ml com Nutella</p>
+                <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+    <span class="preco-combo">R$ 54,00</span>
+    <button class="btn-monte" style="width:80%; padding: 10px;">🛒 Quero esse</button>
+</div>
             </div>
             <div class="card-combo destaque combo-economico" onclick="abrirModalCombo('Trio Econômico', 42.00, 3)">
-                <div class="combo-info"><div class="combo-icon"><i class="fas fa-tag"></i></div><div><h4>Trio Econômico</h4><p>3 Açaí 300ml sem Nutella</p></div></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; position: relative; z-index: 2;"><span class="preco-combo">R$ 42,00</span><button class="btn-monte" style="width:auto; padding: 8px 20px;">🛒 Quero esse</button></div>
+                <div class="combo-info">
+    <div class="combo-icon">
+        <i class="fas fa-tag"></i>
+    </div>
+
+    <h4>Trio Econômico</h4>
+</div>
+
+<p>3 Açaí 300ml sem Nutella</p>
+                <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+    <span class="preco-combo">R$ 42,00</span>
+    <button class="btn-monte" style="width:80%; padding: 10px;">🛒 Quero esse</button>
+</div>
             </div>
         </div>
     </div>
