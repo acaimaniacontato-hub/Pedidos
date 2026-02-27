@@ -159,6 +159,28 @@
         
         .input-entrega { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; margin: 5px 0 12px; box-sizing: border-box; font-family: 'Poppins'; }
         #barra-carrinho { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: var(--roxo-escuro); padding: 15px 30px; border-radius: 50px; display: none; justify-content: space-between; align-items: center; color: white; z-index: 1000; border: 2px solid var(--amarelo); cursor: pointer; }
+    
+    .toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #8a19d6;
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 9999;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+    
     </style>
 </head>
 <body>
@@ -291,6 +313,60 @@
             </div>
         </div>
     </div>
+
+    <h1 class="secao-titulo" id="bebidas">Bebidas</h1>
+<p class="secao-subtitulo">Complete seu pedido</p>
+
+<div class="grid-layout">
+
+    <!-- ÁGUA -->
+    <div class="card-combo destaque">
+
+    <div class="combo-info">
+        <div class="combo-icon">
+            <i class="fas fa-tint"></i>
+        </div>
+        <h4>Água Mineral</h4>
+    </div>
+
+    <p>Garrafa 500ml</p>
+
+    <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+        <span class="preco-combo">R$ 3,00</span>
+
+        <!-- 👇 AQUI -->
+        <button class="btn-monte"
+            onclick="addBebida('Água Mineral', 3.00)">
+            🛒 Adicionar
+        </button>
+
+    </div>
+</div>
+
+    <!-- COCA COLA LATA -->
+    <div class="card-combo destaque">
+
+    <div class="combo-info">
+        <div class="combo-icon">
+            <i class="fas fa-wine-bottle"></i>
+        </div>
+        <h4>Coca-Cola Lata</h4>
+    </div>
+
+    <p>350ml gelada</p>
+
+    <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+        <span class="preco-combo">R$ 5,00</span>
+
+        <!-- 👇 AQUI -->
+        <button class="btn-monte"
+            onclick="addBebida('Coca-Cola Lata', 5.00)">
+            🛒 Adicionar
+        </button>
+    </div>
+</div>
+
+</div>
 
     <section class="avaliacoes-container">
         <h1 class="secao-titulo">Avaliações</h1>
@@ -717,19 +793,24 @@ function abrirCarrinho() {
         lista.innerHTML =
             "<p style='text-align:center; opacity:0.6;'>Seu carrinho está vazio.</p>";
     } else {
-        carrinho.forEach(item => {
+        carrinho.forEach((item, index) => {
             lista.innerHTML += `
-                <div style="border-bottom:1px solid #eee; padding:10px 0;">
-                    <b>${item.nome} (${item.tamanho})</b><br>
-                    <small>
-                        ${item.escolhasCombo ?
-                        item.escolhasCombo.join("<br>") :
-                        item.fruta + " - " + item.complementos}
-                    </small><br>
-                    <span style="color:var(--roxo-principal)">
-                        R$ ${item.preco.toFixed(2)}
-                    </span>
-                </div>`;
+    <div style="border-bottom:1px solid #eee; padding:10px 0; display:flex; justify-content:space-between; align-items:center;">
+
+        <div>
+            <strong>${item.nome} (${item.tamanho || ""})</strong><br>
+            <small>${item.fruta || ""} ${item.complementos || ""}</small><br>
+            <span style="color:#8a19d6;">R$ ${item.preco.toFixed(2)}</span>
+        </div>
+
+        <!-- 👇 BOTÃO REMOVER -->
+        <button onclick="removerItem(${index})"
+            style="background:red; color:#fff; border:none; padding:6px 10px; border-radius:8px; cursor:pointer;">
+            ❌
+        </button>
+
+    </div>
+`;
         });
     }
 
@@ -780,6 +861,27 @@ function enviarZap() {
         alert("Seu carrinho está vazio!");
         return;
     }
+
+    function addBebida(nome, preco) {
+
+    if (!lojaAberta) {
+        alert("Estamos fechados! Você pode fazer pedidos das 10:00 às 22:00.");
+        return;
+    }
+
+    carrinho.push({
+        nome: nome,
+        preco: preco,
+        tamanho: "",
+        fruta: "",
+        complementos: ""
+    });
+
+    atualizarBarra();
+
+    // feedback visual opcional
+    mostrarToast(nome + " adicionado ao carrinho 🛒");
+}
 
     if (!lojaAberta) {
     alert("Estamos fechados no momento! 😢\n\nFuncionamos das 10:00 às 22:00.");
@@ -906,6 +1008,42 @@ function enviarParaSheets(nome, telefone, cidade, endereco, itens, subtotal, fre
         "_blank"
     );
 
+    function addBebida(nome, preco) {
+
+    if (!lojaAberta) {
+        alert("Estamos fechados! Você pode fazer pedidos das 10:00 às 22:00.");
+        return;
+    }
+
+    carrinho.push({
+        nome: nome,
+        preco: preco,
+        tamanho: "",
+        fruta: "",
+        complementos: ""
+    });
+
+    atualizarBarra();
+
+    alert(nome + " adicionado ao carrinho 🛒");
+}
+
+function mostrarToast(mensagem) {
+    const toast = document.getElementById("toast");
+
+    toast.innerText = mensagem;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2500);
+}
+
+function removerItem(index) {
+    carrinho.splice(index, 1);
+    abrirCarrinho(); // atualiza a lista
+    atualizarBarra(); // atualiza total
+}
 
 </script>
 <!-- MODAL CONFIRMAÇÃO -->
@@ -980,8 +1118,8 @@ function enviarParaSheets(nome, telefone, cidade, endereco, itens, subtotal, fre
         <button onclick="finalizarPedido()" class="btn-monte" style="background:#25d366;">Ir para carrinho</button>
     </div>
 </div>
-
-
+    
+<div id="toast" class="toast"></div>
 </body>
 </html>
 
