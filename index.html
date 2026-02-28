@@ -960,7 +960,6 @@ function enviarParaSheets(nome, telefone, cidade, endereco, itens, subtotal, fre
 
     fetch("https://script.google.com/macros/s/AKfycbykZivTN9zgeVRC2dcRLJe1S-RrNzD8OkLGAijeY9-ndXkG4y3yt0BWEpIadAztNPZidA/exec", {
         method: "POST",
-        mode: "no-cors",
         headers: {
             "Content-Type": "application/json"
         },
@@ -1122,6 +1121,7 @@ function removerItem(index) {
 <div id="toast" class="toast"></div>
 </body>
 </html>
+
 
 
 
