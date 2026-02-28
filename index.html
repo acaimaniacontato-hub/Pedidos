@@ -958,6 +958,8 @@ Frete: R$ ${valorFrete.toFixed(2)}
 
 function enviarParaSheets(nome, telefone, cidade, endereco, itens, subtotal, frete, total, pagamento) {
 
+    atualizarFrete();
+
     fetch("https://script.google.com/macros/s/AKfycbykZivTN9zgeVRC2dcRLJe1S-RrNzD8OkLGAijeY9-ndXkG4y3yt0BWEpIadAztNPZidA/exec", {
         method: "POST",
         headers: {
@@ -1121,6 +1123,7 @@ function removerItem(index) {
 <div id="toast" class="toast"></div>
 </body>
 </html>
+
 
 
 
