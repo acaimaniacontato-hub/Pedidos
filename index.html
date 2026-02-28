@@ -254,6 +254,14 @@
                 <div class="img-box"><span class="badge-perso">Premium</span><img src="acai-nutella.jpeg"></div>
                 <div class="card-body"><h3>Açaí com Nutella</h3><button class="btn-monte">🛒 Quero esse</button></div>
             </div>
+            <div class="card" onclick="abrirModal('Açaí com Creme de Avelã', { '300ml': 13.00, '400ml': 17.00, '500ml': 21.00 })">
+                <div class="img-box"><span class="badge-perso">Premium</span><img src="creme de avela.jpeg"></div>
+                <div class="card-body"><h3>Açaí com Avelã</h3><button class="btn-monte">🛒 Quero esse</button></div>
+            </div>
+            <div class="card" onclick="abrirModal('Açaí com Mousse de Paçoca', { '300ml': 13.00 })">
+                <div class="img-box"><span class="badge-perso">Gourmet - Textura Premium</span><img src="pacoca.jpeg"></div>
+                <div class="card-body"><h3>Açaí com Mousse de Paçoca</h3><button class="btn-monte">🛒 Quero esse</button></div>
+            </div>
             <div class="card" onclick="abrirModal('Cupuaçu', { '300ml': 17.00, '400ml': 20.00, '500ml': 23.00 })">
                 <div class="img-box"><img src="cupuacu.jpeg"></div>
                 <div class="card-body"><h3>Cupuaçu</h3><button class="btn-monte">🛒 Quero esse</button></div>
@@ -312,7 +320,7 @@
     <button class="btn-monte" style="width:80%; padding: 10px;">🛒 Quero esse</button>
 </div>
             </div>
-             <div class="card-combo destaque combo-familia" onclick="abrirModalCombo('Combo Família', 52.00, 3)">
+             <div class="card-combo destaque combo-familia" onclick="abrirModalCombo('Combo Família', 54.00, 3)">
                 <div class="combo-info">
     <div class="combo-icon">
         <i class="fas fa-users"></i>
@@ -348,30 +356,21 @@
     </div>
 
     <div class="container">
-
-    <h1 class="secao-titulo">🥤 Bebidas</h1>
-    <p class="secao-subtitulo">Geladinhas pra acompanhar seu açaí</p>
-
-    <div class="grid-produtos">
-
-        <div class="card-produto">
-            <img src="img/coca.jpg" alt="Coca-Cola">
-            <h3>Coca-Cola Lata</h3>
-            <p class="preco">R$ 5,00</p>
-            <button onclick="adicionarCarrinho('Coca-Cola Lata', 5)">
-                🛒 Quero essa
-            </button>
+        <h1 class="secao-titulo" id="bebidas">Bebidas</h1>
+        <div class="grid-layout">
+            <div class="card-combo destaque">
+                <div class="combo-info"><div class="combo-icon"><i class="fas fa-tint"></i></div><h4>Água Mineral</h4></div>
+                <p>Garrafa 500ml</p>
+                <span class="preco-combo">R$ 3,50</span>
+                <button class="btn-monte" onclick="addBebida('Água Mineral', 3.50)">🛒 Adicionar</button>
+            </div>
+            <div class="card-combo destaque">
+                <div class="combo-info"><div class="combo-icon"><i class="fas fa-wine-bottle"></i></div><h4>Coca-Cola Lata</h4></div>
+                <p>350ml gelada</p>
+                <span class="preco-combo">R$ 5,00</span>
+                <button class="btn-monte" onclick="addBebida('Coca-Cola Lata', 5.00)">🛒 Adicionar</button>
+            </div>
         </div>
-
-        <div class="card-produto">
-            <img src="img/guarana.jpg" alt="Guaraná">
-            <h3>Guaraná Lata</h3>
-            <p class="preco">R$ 5,00</p>
-            <button onclick="adicionarCarrinho('Guaraná Lata', 5)">
-                🛒 Quero essa
-            </button>
-        </div>
-
     </div>
 
 </div>
@@ -449,7 +448,7 @@
                     <div class="op-item" onclick="selectFruta(this)">Morango</div>
                 </div>
 
-                <p><b>Complementos (Escolha até 3):</b></p>
+                <h4 id="titulo-complementos">Complementos (Escolha até 3):</h4>
                 <div class="op-grid" id="grid-complementos">
                     <div class="op-item multi-select" onclick="selectComplemento(this)">Leite em Pó</div>
                     <div class="op-item multi-select" onclick="selectComplemento(this)">Granola</div>
@@ -576,7 +575,7 @@ function atualizarStatusLoja() {
     const statusTexto = document.getElementById('status-texto');
     const botao = document.getElementById('btn-enviar');
 
-    if (hora >= 10 && hora < 23) {
+    if (hora >= 10 && hora < 22) {
         lojaAberta = true;
 
         statusBox.className = 'status-loja loja-aberta';
@@ -642,6 +641,28 @@ function abrirModal(nome, precos) {
     };
     
     document.getElementById('m-tit').innerText = nome;
+    const gridComplementos = document.getElementById('grid-complementos');
+    // 🔥 LIBERAÇÃO DE COMPLEMENTOS POR PRODUTO
+const tituloComplementos = document.getElementById('titulo-complementos');
+
+if (nome === 'Açaí com Mousse de Paçoca') {
+    tituloComplementos.innerText = 'Complementos (Escolha até 2):';
+
+    gridComplementos.innerHTML = `
+        <div class="op-item multi-select" onclick="selectComplemento(this)">Leite Condensado</div>
+        <div class="op-item multi-select" onclick="selectComplemento(this)">Amendoim</div>
+    `;
+} else {
+    tituloComplementos.innerText = 'Complementos (Escolha até 3):';
+
+    gridComplementos.innerHTML = `
+        <div class="op-item multi-select" onclick="selectComplemento(this)">Leite em Pó</div>
+        <div class="op-item multi-select" onclick="selectComplemento(this)">Granola</div>
+        <div class="op-item multi-select" onclick="selectComplemento(this)">Paçoca</div>
+        <div class="op-item multi-select" onclick="selectComplemento(this)">Leite Condensado</div>
+        <div class="op-item multi-select" onclick="selectComplemento(this)">Amendoim</div>
+    `;
+}
     document.getElementById('indicador-copo').style.display = 'none';
     document.getElementById('box-tamanhos').style.display = 'block';
     
@@ -657,7 +678,7 @@ function abrirModal(nome, precos) {
     });
 
     resetSelecoes();
-    document.getElementById('modalProd').style.display = 'block';
+document.getElementById('modalProd').style.display = 'block';
 }
 
 
@@ -844,11 +865,17 @@ function continuarComprando() {
 function finalizarPedido() {
     document.getElementById("modalConfirmacao").style.display = "none";
 
-    
+    // 🔥 PEGA O FRETE AQUI
+    valorFrete = pegarFreteSelecionado();
+
+    console.log("Frete antes de enviar:", valorFrete); // teste
+
+    // 👉 CHAMA SUA FUNÇÃO DE ENVIO (se existir)
+    enviarPedido(); // se o nome for outro, me fala
 
     // Pequeno delay para evitar conflito de animação
     setTimeout(() => {
-    abrirCarrinho(); 
+        abrirCarrinho(); 
     }, 150);
 }
 
@@ -989,6 +1016,32 @@ function enviarParaSheets(nome, telefone, cidade, endereco, itens, subtotal, fre
         `https://wa.me/5561995214424?text=${encodeURIComponent(mensagemFinal)}`,
         "_blank"
     );
+
+    function addBebida(nome, preco) {
+
+    if (!lojaAberta) {
+        alert("Estamos fechados! Você pode fazer pedidos das 10:00 às 22:00.");
+        return;
+    }
+
+    carrinho.push({
+        nome: nome,
+        preco: preco,
+        tamanho: '',
+        fruta: '',
+        complementos: ''
+    });
+
+    atualizarBarra();
+    abrirCarrinho(); // 🔥 abre direto o carrinho
+}
+
+function pegarFreteSelecionado() {
+    const select = document.getElementById('cidade');
+    const opcao = select.options[select.selectedIndex];
+
+    return parseFloat(opcao.getAttribute('data-frete')) || 0;
+}
 
 
 </script>
