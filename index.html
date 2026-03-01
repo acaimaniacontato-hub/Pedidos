@@ -575,7 +575,7 @@ function atualizarStatusLoja() {
     const statusTexto = document.getElementById('status-texto');
     const botao = document.getElementById('btn-enviar');
 
-    if (hora >= 14 && hora < 22) {
+    if (hora >= 10 && hora < 22) {
         lojaAberta = true;
 
         statusBox.className = 'status-loja loja-aberta';
@@ -591,7 +591,7 @@ function atualizarStatusLoja() {
         lojaAberta = false;
 
         statusBox.className = 'status-loja loja-fechada';
-        statusTexto.innerText = 'Fechado • abre às 14:00';
+        statusTexto.innerText = 'Fechado • abre às 10:00';
 
         if (botao) {
             botao.disabled = true;
@@ -1121,6 +1121,7 @@ function pegarFreteSelecionado() {
 
 </body>
 </html>
+
 
 
 
