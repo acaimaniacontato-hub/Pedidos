@@ -878,9 +878,9 @@ function enviarZap() {
     }
 
     if (!lojaAberta) {
-    alert("Estamos fechados no momento! 😢\n\nFuncionamos das 10:00 às 22:00.");
-    return;
-}
+        alert("Estamos fechados no momento! 😢\n\nFuncionamos das 10:00 às 22:00.");
+        return;
+    }
 
     const nome = document.getElementById("cli-nome").value;
     const telefone = document.getElementById("cli-tel").value;
@@ -893,8 +893,10 @@ function enviarZap() {
         return;
     }
 
+    // 🔥 SALVAMOS O VALOR DO FRETE NUMA CONSTANTE PARA NÃO PERDER
+    const freteFixoParaEnvio = valorFrete; 
     const subtotal = carrinho.reduce((a, b) => a + b.preco, 0);
-    const total = subtotal + valorFrete;
+    const total = subtotal + freteFixoParaEnvio;
 
     const itensDetalhados = carrinho.map(item => {
         let texto = `🟣 ${item.nome} (${item.tamanho}) - R$ ${item.preco.toFixed(2)}\n`;
@@ -917,7 +919,7 @@ function enviarZap() {
 ${itensDetalhados}
 
 Subtotal: R$ ${subtotal.toFixed(2)}
-Frete: R$ ${valorFrete.toFixed(2)}
+Frete: R$ ${freteFixoParaEnvio.toFixed(2)}
 *Total: R$ ${total.toFixed(2)}*
 
 💳 Pagamento: ${pagamento}`;
@@ -925,30 +927,37 @@ Frete: R$ ${valorFrete.toFixed(2)}
     const numero = "5561995214424";
     const link = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
 
-    // Abre WhatsApp
+    // 1️⃣ PRIMEIRO: Envia para a planilha usando o valor que salvamos na constante
+    enviarParaSheets(nome, telefone, cidade, endereco, itensDetalhados, subtotal, freteFixoParaEnvio, total, pagamento);
+
+    // 2️⃣ SEGUNDO: Abre o WhatsApp
     window.open(link, "_blank", "noopener,noreferrer");
 
-    // Reset completo do carrinho e formulário
+    // 3️⃣ TERCEIRO: Reset completo (SÓ AGORA ZERAMOS AS VARIÁVEIS)
     carrinho = [];
     valorFrete = 0;
-    fecharCart(); // fecha modal do carrinho
-    atualizarBarra(); // atualiza barra do carrinho
+    fecharCart();
+    atualizarBarra();
+    
+    // Limpa os campos do formulário
     document.getElementById("cli-nome").value = "";
     document.getElementById("cli-tel").value = "";
     document.getElementById("cli-cidade").selectedIndex = 0;
     document.getElementById("cli-end").value = "";
     document.getElementById("pag-forma").selectedIndex = 0;
+    
+    // Zera os textos de resumo
     document.getElementById("resumo-subtotal").innerText = "R$ 0,00";
     document.getElementById("resumo-frete").innerText = "R$ 0,00";
     document.getElementById("resumo-total").innerText = "R$ 0,00";
     document.getElementById("display-frete").innerText = "Frete: R$ 0,00";
 
-    // Volta para o topo da página
     window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
     // Envia para planilha
     enviarParaSheets(nome, telefone, cidade, endereco, itensDetalhados, subtotal, valorFrete, total, pagamento);
-}
+
 
 function enviarParaSheets(nome, telefone, cidade, endereco, itens, subtotal, frete, total, pagamento) {
 
@@ -1106,7 +1115,6 @@ function pegarFreteSelecionado() {
 
 </body>
 </html>
-
 
 
 
